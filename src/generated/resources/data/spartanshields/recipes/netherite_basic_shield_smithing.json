@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "spartanshields:diamond_basic_shield"
+  },
+  "addition": {
+    "tag": "forge:ingots/netherite"
+  },
+  "result": {
+    "item": "spartanshields:netherite_basic_shield"
+  }
+}

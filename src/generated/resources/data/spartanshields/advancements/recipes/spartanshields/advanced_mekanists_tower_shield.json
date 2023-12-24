@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "spartanshields:advanced_mekanists_tower_shield"
+    ]
+  },
+  "criteria": {
+    "has_basic_mekanists_shield": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanshields:basic_mekanists_tower_shield"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "spartanshields:advanced_mekanists_tower_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_basic_mekanists_shield",
+      "has_the_recipe"
+    ]
+  ]
+}

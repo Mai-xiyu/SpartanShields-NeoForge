@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "spartanshields:ultimate_mekanists_basic_shield"
+    ]
+  },
+  "criteria": {
+    "has_elite_mekanists_shield": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spartanshields:elite_mekanists_basic_shield"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "spartanshields:ultimate_mekanists_basic_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_elite_mekanists_shield",
+      "has_the_recipe"
+    ]
+  ]
+}

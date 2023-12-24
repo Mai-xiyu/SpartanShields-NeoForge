@@ -1,0 +1,26 @@
+{
+  "parent": "spartanshields:item/mekanists_basic_shield_base",
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:disabled": 0.0,
+        "minecraft:blocking": 1.0
+      },
+      "model": "spartanshields:item/mekanists_basic_shield_base_blocking"
+    },
+    {
+      "predicate": {
+        "minecraft:disabled": 1.0,
+        "minecraft:blocking": 0.0
+      },
+      "model": "spartanshields:item/mekanists_basic_shield_base_deactivated"
+    },
+    {
+      "predicate": {
+        "minecraft:disabled": 1.0,
+        "minecraft:blocking": 1.0
+      },
+      "model": "spartanshields:item/mekanists_basic_shield_base_deactivated_blocking"
+    }
+  ]
+}

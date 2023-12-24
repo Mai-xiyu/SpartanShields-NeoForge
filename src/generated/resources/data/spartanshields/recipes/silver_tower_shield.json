@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "spartanshields:silver_shields",
+  "pattern": [
+    "###",
+    "#O#",
+    " # "
+  ],
+  "key": {
+    "O": {
+      "item": "spartanshields:wooden_tower_shield"
+    },
+    "#": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "result": {
+    "item": "spartanshields:silver_tower_shield"
+  },
+  "conditions": [
+    {
+      "disabled": [
+        "modded",
+        "silver"
+      ],
+      "type": "spartanshields:type_disabled"
+    },
+    {
+      "value": {
+        "tag": "forge:ingots/silver",
+        "type": "forge:tag_empty"
+      },
+      "type": "forge:not"
+    }
+  ]
+}

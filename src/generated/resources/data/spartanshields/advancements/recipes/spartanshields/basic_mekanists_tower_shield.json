@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "spartanshields:basic_mekanists_tower_shield"
+    ]
+  },
+  "criteria": {
+    "has_energy_tablet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mekanism:energy_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "spartanshields:basic_mekanists_tower_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energy_tablet",
+      "has_the_recipe"
+    ]
+  ]
+}

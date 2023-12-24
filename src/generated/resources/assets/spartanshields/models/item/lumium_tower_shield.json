@@ -1,0 +1,11 @@
+{
+  "parent": "spartanshields:item/tower_shield_base",
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:blocking": 1.0
+      },
+      "model": "spartanshields:item/tower_shield_base_blocking"
+    }
+  ]
+}

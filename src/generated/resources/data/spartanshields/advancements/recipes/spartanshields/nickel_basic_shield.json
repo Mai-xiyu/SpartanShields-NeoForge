@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "spartanshields:nickel_basic_shield"
+    ]
+  },
+  "criteria": {
+    "has_nickel_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/nickel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "spartanshields:nickel_basic_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_nickel_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#s#",
+    "#/#",
+    " m "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/elementium"
+    },
+    "/": {
+      "item": "botania:dreamwood_twig"
+    },
+    "s": {
+      "item": "botania:rune_summer"
+    },
+    "m": {
+      "item": "botania:rune_mana"
+    }
+  },
+  "result": {
+    "item": "spartanshields:elementium_basic_shield"
+  },
+  "conditions": [
+    {
+      "modid": "botania",
+      "type": "forge:mod_loaded"
+    }
+  ]
+}

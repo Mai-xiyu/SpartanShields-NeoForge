@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "spartanshields:osmium_basic_shield"
+    ]
+  },
+  "criteria": {
+    "has_osmium_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/osmium"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "spartanshields:osmium_basic_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_osmium_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}
