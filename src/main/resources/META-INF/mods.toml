@@ -3,7 +3,7 @@ loaderVersion="[40,)"
 # The license for your mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license="All Rights Reserved"
-issueTrackerURL="https://minecraft.curseforge.com/projects/spartan-shields/issues"
+issueTrackerURL="https://github.com/ObliviousSpartan/SpartanShields/issues"
 logoFile="logo.png"
 
 [[mods]]
