@@ -14,8 +14,6 @@ import com.oblivioussp.spartanshields.init.ModEnchantments;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.DyeColor;
@@ -23,11 +21,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 public class ShieldBaseItem extends ShieldItem
 {
@@ -44,13 +41,14 @@ public class ShieldBaseItem extends ShieldItem
 	}
 	
 	@Override
-	public void initializeClient(Consumer<IItemRenderProperties> consumer) 
+	public void initializeClient(Consumer<IClientItemExtensions> consumer) 
 	{
-		consumer.accept(new IItemRenderProperties() {
+		consumer.accept(new IClientItemExtensions() {
+			
 			@Override
-			public BlockEntityWithoutLevelRenderer getItemStackRenderer() 
+			public BlockEntityWithoutLevelRenderer getCustomRenderer() 
 			{
-				return isTowerShield ? TowerShieldBEWLR.INSTANCE : IItemRenderProperties.super.getItemStackRenderer() ;
+				return isTowerShield ? TowerShieldBEWLR.INSTANCE : IClientItemExtensions.super.getCustomRenderer() ;
 			}
 		});
 	}
@@ -78,9 +76,9 @@ public class ShieldBaseItem extends ShieldItem
     	if(isTowerShield && !stackIn.isEmpty() && stackIn.hasTag() && stackIn.getTag().contains("BlockEntityTag"))
         {
     		DyeColor dyeColor = ShieldItem.getColor(stackIn);
-    		tooltipIn.add(new TextComponent(""));
-    		tooltipIn.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".has_patterns"));
-    		tooltipIn.add(new TranslatableComponent(String.format("block.minecraft.%s_banner", dyeColor.name().toLowerCase())).withStyle(ChatFormatting.BOLD, ChatFormatting.GRAY));
+    		tooltipIn.add(Component.empty());
+    		tooltipIn.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".has_patterns"));
+    		tooltipIn.add(Component.translatable(String.format("block.minecraft.%s_banner", dyeColor.name().toLowerCase())).withStyle(ChatFormatting.BOLD, ChatFormatting.GRAY));
     		BannerItem.appendHoverTextFromBannerBlockEntityTag(stackIn, tooltipIn);
         }
     	
@@ -97,10 +95,10 @@ public class ShieldBaseItem extends ShieldItem
     @OnlyIn(Dist.CLIENT)
     public void addEffectsTooltip(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) 
     {
-    	if(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PAYBACK.get(), stack) != 0)
+    	if(stack.getEnchantmentLevel(ModEnchantments.PAYBACK.get()) != 0)
     	{
     		float paybackDamage = stack.getOrCreateTag().getFloat(PaybackEnchantment.NBT_PAYBACK_DMG);
-    		tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".payback_bonus", ChatFormatting.GRAY.toString() + Float.toString(paybackDamage)).withStyle(ChatFormatting.LIGHT_PURPLE));
+    		tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".payback_bonus", ChatFormatting.GRAY.toString() + Float.toString(paybackDamage)).withStyle(ChatFormatting.LIGHT_PURPLE));
     	}
     }
 }

@@ -1,43 +1,43 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ada",
-    "bOb",
-    "#c#"
+  "conditions": [
+    {
+      "type": "spartanshields:type_disabled",
+      "disabled": [
+        "modded"
+      ]
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
   ],
   "key": {
-    "a": {
-      "item": "mekanism:alloy_infused"
-    },
-    "d": {
-      "item": "mekanism:enriched_diamond"
-    },
-    "c": {
-      "item": "mekanism:basic_control_circuit"
-    },
-    "b": {
-      "item": "mekanism:energy_tablet"
-    },
     "#": {
       "tag": "forge:ingots/steel"
     },
     "O": {
       "item": "spartanshields:wooden_tower_shield"
+    },
+    "a": {
+      "item": "mekanism:alloy_infused"
+    },
+    "b": {
+      "item": "mekanism:energy_tablet"
+    },
+    "c": {
+      "item": "mekanism:basic_control_circuit"
+    },
+    "d": {
+      "item": "mekanism:enriched_diamond"
     }
   },
+  "pattern": [
+    "ada",
+    "bOb",
+    "#c#"
+  ],
   "result": {
     "item": "spartanshields:basic_mekanists_tower_shield"
-  },
-  "conditions": [
-    {
-      "disabled": [
-        "modded"
-      ],
-      "type": "spartanshields:type_disabled"
-    },
-    {
-      "modid": "mekanism",
-      "type": "forge:mod_loaded"
-    }
-  ]
+  }
 }

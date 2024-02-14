@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "spartanshields:diamond_shields",
+  "key": {
+    "#": {
+      "tag": "forge:gems/diamond"
+    },
+    "O": {
+      "item": "spartanshields:wooden_basic_shield"
+    }
+  },
   "pattern": [
     " # ",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_basic_shield"
-    },
-    "#": {
-      "tag": "forge:gems/diamond"
-    }
-  },
   "result": {
     "item": "spartanshields:diamond_basic_shield"
   }

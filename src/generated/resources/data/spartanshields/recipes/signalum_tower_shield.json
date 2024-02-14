@@ -1,36 +1,36 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanshields:type_disabled",
+      "disabled": [
+        "modded",
+        "signalum"
+      ]
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/signalum"
+      }
+    }
+  ],
   "group": "spartanshields:signalum_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/signalum"
+    },
+    "O": {
+      "item": "spartanshields:wooden_tower_shield"
+    }
+  },
   "pattern": [
     " # ",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_tower_shield"
-    },
-    "#": {
-      "tag": "forge:ingots/signalum"
-    }
-  },
   "result": {
     "item": "spartanshields:signalum_tower_shield"
-  },
-  "conditions": [
-    {
-      "disabled": [
-        "modded",
-        "signalum"
-      ],
-      "type": "spartanshields:type_disabled"
-    },
-    {
-      "value": {
-        "tag": "forge:ingots/signalum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ]
+  }
 }

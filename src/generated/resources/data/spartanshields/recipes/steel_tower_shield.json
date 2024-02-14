@@ -1,36 +1,36 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanshields:type_disabled",
+      "disabled": [
+        "modded",
+        "steel"
+      ]
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/steel"
+      }
+    }
+  ],
   "group": "spartanshields:steel_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/steel"
+    },
+    "O": {
+      "item": "spartanshields:wooden_tower_shield"
+    }
+  },
   "pattern": [
     "###",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_tower_shield"
-    },
-    "#": {
-      "tag": "forge:ingots/steel"
-    }
-  },
   "result": {
     "item": "spartanshields:steel_tower_shield"
-  },
-  "conditions": [
-    {
-      "disabled": [
-        "modded",
-        "steel"
-      ],
-      "type": "spartanshields:type_disabled"
-    },
-    {
-      "value": {
-        "tag": "forge:ingots/steel",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ]
+  }
 }

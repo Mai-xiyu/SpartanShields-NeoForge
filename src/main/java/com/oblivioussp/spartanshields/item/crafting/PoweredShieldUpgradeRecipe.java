@@ -16,11 +16,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class PoweredShieldUpgradeRecipe implements CraftingRecipe, IShapedRecipe<CraftingContainer>
 {
@@ -49,14 +48,14 @@ public class PoweredShieldUpgradeRecipe implements CraftingRecipe, IShapedRecipe
 		for(int i = 0; i < inv.getContainerSize(); i++)
 		{
 			ItemStack stack = inv.getItem(i);
-			LazyOptional<IEnergyStorage> cap = stack.getCapability(CapabilityEnergy.ENERGY);
+			LazyOptional<IEnergyStorage> cap = stack.getCapability(ForgeCapabilities.ENERGY);
 			if(cap.isPresent())
 				feToTransfer += cap.resolve().orElseThrow().getEnergyStored();
 		}
 		
 		// The Result item *MUST* have the energy capability or it will cause a crash.
 		// It is used to look up the maximum stored FE.
-		LazyOptional<IEnergyStorage> resultCap = resultStack.getCapability(CapabilityEnergy.ENERGY);
+		LazyOptional<IEnergyStorage> resultCap = resultStack.getCapability(ForgeCapabilities.ENERGY);
 		int maxFE = resultCap.resolve().orElseThrow().getMaxEnergyStored();
 		
 		// Clamp the stored FE to the maximum storable energy and store it in NBT 
@@ -133,12 +132,9 @@ public class PoweredShieldUpgradeRecipe implements CraftingRecipe, IShapedRecipe
 		return internalRecipe.getRecipeHeight();
 	}
 	
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<PoweredShieldUpgradeRecipe>
+	public static class Serializer implements RecipeSerializer<PoweredShieldUpgradeRecipe>
 	{
-		public Serializer()
-		{
-//			setRegistryName(new ResourceLocation(ModSpartanShields.ID, "upgrade_powered_shield"));
-		}
+		public Serializer() {}
 
 		@Override
 		public PoweredShieldUpgradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) 

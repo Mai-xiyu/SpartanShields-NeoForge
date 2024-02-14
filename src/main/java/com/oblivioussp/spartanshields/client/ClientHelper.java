@@ -16,7 +16,6 @@ import com.oblivioussp.spartanshields.item.FEPoweredShieldItem;
 import com.oblivioussp.spartanshields.item.ShieldBaseItem;
 import com.oblivioussp.spartanshields.util.Log;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientHelper 
 {
-	public static void registerItemColors()
+/*	public static void registerItemColors()
 	{
 		Minecraft.getInstance().getItemColors().register(new ItemColor() {
 			@Override
@@ -61,7 +61,7 @@ public class ClientHelper
 				return layer == 1 ? 0xF083F0 : 0xFFFFFF;
 			}
 		}, ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get());
-	}
+	}*/
 	
 	public static void registerShieldPropertyOverrides(ShieldBaseItem item)
 	{
@@ -79,6 +79,39 @@ public class ClientHelper
 			boolean disabled = stack.getOrCreateTag().getInt(FEPoweredShieldItem.NBT_ENERGY) <= 0 ;
 			return disabled ? 1.0f : 0.0f;
 		});
+	}
+	
+	@SubscribeEvent
+	public static void registerItemColours(RegisterColorHandlersEvent.Item ev)
+	{
+		ev.register(new ItemColor() {
+			@Override
+			public int getColor(ItemStack stack, int layer) 
+			{
+				return layer == 1 ? 0x78F083 : 0xFFFFFF;
+			}
+		}, ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get());
+		ev.register(new ItemColor() {
+			@Override
+			public int getColor(ItemStack stack, int layer) 
+			{
+				return layer == 1 ? 0xF07883 : 0xFFFFFF;
+			}
+		}, ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get());
+		ev.register(new ItemColor() {
+			@Override
+			public int getColor(ItemStack stack, int layer) 
+			{
+				return layer == 1 ? 0x7883F0 : 0xFFFFFF;
+			}
+		}, ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get());
+		ev.register(new ItemColor() {
+			@Override
+			public int getColor(ItemStack stack, int layer) 
+			{
+				return layer == 1 ? 0xF083F0 : 0xFFFFFF;
+			}
+		}, ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get());
 	}
 	
 	/*@SubscribeEvent

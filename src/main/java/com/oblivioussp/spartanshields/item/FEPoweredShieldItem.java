@@ -13,14 +13,11 @@ import com.oblivioussp.spartanshields.util.EnergyCapabilityProviderItem;
 import com.oblivioussp.spartanshields.util.PowerUnit;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -65,7 +62,7 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
     @Override
     public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> subItems)
     {
-    	if(allowdedIn(group))
+    	if(allowedIn(group))
     	{
 	    	ItemStack fullShield = new ItemStack(this);
 	    	fullShield.getOrCreateTag().putInt(NBT_ENERGY, energyCapacity);
@@ -141,10 +138,10 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn)
     {
 		LocalizedNumberFormatter formatter = NumberFormatter.withLocale(Minecraft.getInstance().getLanguageManager().getSelected().getJavaLocale());
-    	tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getCapacityTranslationKey(), formatter.format(Mth.floor(this.getFEStored(stack) * preferredEnergyUnit.getEnergyScaleToFE())), formatter.format(Mth.floor(this.getFECapacity(stack)  * preferredEnergyUnit.getEnergyScaleToFE()))));
-    	tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getEnergyChargeRateTranslationKey(), formatter.format(Mth.floor(this.maxEnergyReceive * preferredEnergyUnit.getEnergyScaleToFE()))));
-    	tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getEnergyPerDamageTranslationKey(), formatter.format(Mth.floor(Config.INSTANCE.damageToFEMultiplier.get() * 2 * preferredEnergyUnit.getEnergyScaleToFE()))));
-    	tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + "." + "fe_shield.desc"));
+    	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getCapacityTranslationKey(), formatter.format(Mth.floor(this.getFEStored(stack) * preferredEnergyUnit.getEnergyScaleToFE())), formatter.format(Mth.floor(this.getFECapacity(stack)  * preferredEnergyUnit.getEnergyScaleToFE()))));
+    	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getEnergyChargeRateTranslationKey(), formatter.format(Mth.floor(this.maxEnergyReceive * preferredEnergyUnit.getEnergyScaleToFE()))));
+    	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getEnergyPerDamageTranslationKey(), formatter.format(Mth.floor(Config.INSTANCE.damageToFEMultiplier.get() * 2 * preferredEnergyUnit.getEnergyScaleToFE()))));
+    	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + "fe_shield.desc"));
 //    	this.addShieldBashTooltip(stack, level, tooltip, flagIn);
     }
 	
@@ -167,8 +164,8 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
         else
         {
         	if(level.isClientSide)
-        		player.sendMessage(new TextComponent(ChatFormatting.YELLOW.toString()
-        			+ I18n.get("message." + ModSpartanShields.ID + ".powered_shield_block_fail", stack.getHoverName().getString())), Util.NIL_UUID);
+        		player.sendSystemMessage(Component.literal(ChatFormatting.YELLOW.toString()
+        			+ I18n.get("message." + ModSpartanShields.ID + ".powered_shield_block_fail", stack.getHoverName().getString())));
         	return InteractionResultHolder.fail(stack);
         }
     }

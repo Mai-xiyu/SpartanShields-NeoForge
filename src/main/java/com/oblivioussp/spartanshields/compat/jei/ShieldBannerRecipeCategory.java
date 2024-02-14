@@ -1,6 +1,6 @@
 package com.oblivioussp.spartanshields.compat.jei;
 
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -127,64 +127,7 @@ public class ShieldBannerRecipeCategory implements IRecipeCategory<ShieldDecorat
 		
 		builder.createFocusLink(bannerSlot, outputSlot);
 	}
-
-	/*@Override
-	public void setIngredients(ShieldDecorationRecipe recipe, IIngredients ingredients) 
-	{
-		ItemStack shield = new ItemStack(Items.SHIELD);
-		List<ItemStack> banners = Arrays.asList(Ingredient.of(ItemTags.BANNERS).getItems());
-		
-		if(recipe instanceof ShieldBannerRecipe)
-		{
-			ShieldBannerRecipe shieldRecipe = (ShieldBannerRecipe)recipe;
-			shield = new ItemStack(shieldRecipe.getShieldItem());
-		}
-		
-		List<List<ItemStack>> inputs = new ArrayList<List<ItemStack>>();
-		inputs.add(Collections.singletonList(shield));
-		inputs.add(banners);
-		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
-		
-		List<ItemStack> outputs = new ArrayList<ItemStack>();
-		
-		for(ItemStack banner : banners)
-		{
-			ItemStack banneredShield = shield.copy();
-			CompoundTag nbt = new CompoundTag();
-			nbt.putInt("Base", ((BannerItem)banner.getItem()).getColor().getId());
-			banneredShield.getOrCreateTag().put("BlockEntityTag", nbt);
-			outputs.add(banneredShield);
-		}
-		
-		ingredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(outputs));
-	}*/
-
-	/*@Override
-	public void setRecipe(IRecipeLayout recipeLayout, ShieldDecorationRecipe recipe, IIngredients ingredients) 
-	{
-		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(0, false, 94, 18);
-		
-		guiItemStacks.init(1, true, 18, 18);
-		guiItemStacks.init(2, true, 36, 18);
-		
-		List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
-		List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
-		
-		guiItemStacks.set(1, inputs.get(0));
-		guiItemStacks.set(2, inputs.get(1));
-		guiItemStacks.set(0, outputs.get(0));
-		
-		recipeLayout.setShapeless();
-		IGuiItemStackGroup group = recipeLayout.getItemStacks();
-		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			if(outputs.get(0).contains(ingredient))
-			{
-				tooltip.add(new TranslatableComponent("gui." + ModSpartanShields.ID + ".tooltip.shield_banner.any_pattern").withStyle(ChatFormatting.ITALIC, ChatFormatting.RED));
-			}
-		});
-	}*/
 	
 	
 
-}
+}*/

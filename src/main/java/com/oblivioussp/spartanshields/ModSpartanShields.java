@@ -1,7 +1,5 @@
 package com.oblivioussp.spartanshields;
 
-import com.oblivioussp.spartanshields.client.ClientHelper;
-import com.oblivioussp.spartanshields.client.ModKeyBinds;
 import com.oblivioussp.spartanshields.config.Config;
 import com.oblivioussp.spartanshields.init.ModEnchantments;
 import com.oblivioussp.spartanshields.init.ModItems;
@@ -58,7 +56,7 @@ public class ModSpartanShields
     private void onClientSetup(FMLClientSetupEvent ev)
     {
         Log.info("Setting up Client for " + NAME + "!");
-        ClientHelper.registerItemColors();
-        ModKeyBinds.registerKeyBinds();
+//        ClientHelper.registerItemColors();
+//        ModKeyBinds.registerKeyBinds();
     }
 }

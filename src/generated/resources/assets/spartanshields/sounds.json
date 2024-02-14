@@ -1,16 +1,15 @@
 {
   "shield.bash.hit": {
-    "subtitle": "subtitle.spartanshields.shield.bash.hit",
     "sounds": [
       "item/shield/block1",
       "item/shield/block2",
       "item/shield/block3",
       "item/shield/block4",
       "item/shield/block5"
-    ]
+    ],
+    "subtitle": "subtitle.spartanshields.shield.bash.hit"
   },
   "shield.bash.miss": {
-    "subtitle": "subtitle.spartanshields.shield.bash.miss",
     "sounds": [
       {
         "name": "entity/player/attack/sweep1",
@@ -40,15 +39,16 @@
         "name": "entity/player/attack/sweep7",
         "volume": 0.7
       }
-    ]
+    ],
+    "subtitle": "subtitle.spartanshields.shield.bash.miss"
   },
   "shield.payback.charge": {
-    "subtitle": "subtitle.spartanshields.shield.payback.charge",
     "sounds": [
       {
         "name": "random/levelup",
         "pitch": 0.5
       }
-    ]
+    ],
+    "subtitle": "subtitle.spartanshields.shield.payback.charge"
   }
 }

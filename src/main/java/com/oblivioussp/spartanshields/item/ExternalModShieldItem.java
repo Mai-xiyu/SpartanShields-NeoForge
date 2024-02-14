@@ -11,7 +11,6 @@ import com.oblivioussp.spartanshields.util.TierSS;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -38,7 +37,7 @@ public class ExternalModShieldItem extends BasicShieldItem
     {
     	if(!Config.INSTANCE.forceDisableUncraftableTooltips.get())
     	{
-    		tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".uncraftable_missing_mods", I18n.get("mod." + ModSpartanShields.ID + "." + modName)).withStyle(ChatFormatting.RED));
+    		tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".uncraftable_missing_mods", I18n.get("mod." + ModSpartanShields.ID + "." + modName)).withStyle(ChatFormatting.RED));
     	}
     	
     	super.appendHoverText(stack, level, tooltip, flagIn);

@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "spartanshields:copper_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/copper"
+    },
+    "O": {
+      "item": "spartanshields:wooden_basic_shield"
+    }
+  },
   "pattern": [
     " # ",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_basic_shield"
-    },
-    "#": {
-      "tag": "forge:ingots/copper"
-    }
-  },
   "result": {
     "item": "spartanshields:copper_basic_shield"
   }

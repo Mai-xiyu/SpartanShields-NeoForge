@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -165,7 +166,7 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
 			model.renderExtraParts(mStack, consumer, packedLight, packedOverlay, 1.0f, 1.0f, 1.0f, 1.0f);
 			if(isBannered)
 			{
-				List<Pair<BannerPattern, DyeColor>> bannerPatterns = BannerBlockEntity.createPatterns(ShieldItem.getColor(stack), BannerBlockEntity.getItemPatterns(stack));
+				List<Pair<Holder<BannerPattern>, DyeColor>> bannerPatterns = BannerBlockEntity.createPatterns(ShieldItem.getColor(stack), BannerBlockEntity.getItemPatterns(stack));
 				BannerRenderer.renderPatterns(mStack, buffer, packedLight, packedOverlay, model.getPlate(), material, false, bannerPatterns, stack.hasFoil());
 			}
 			else

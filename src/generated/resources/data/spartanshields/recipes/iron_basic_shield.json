@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "spartanshields:iron_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "O": {
+      "item": "spartanshields:wooden_basic_shield"
+    }
+  },
   "pattern": [
     " # ",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_basic_shield"
-    },
-    "#": {
-      "tag": "forge:ingots/iron"
-    }
-  },
   "result": {
     "item": "spartanshields:iron_basic_shield"
   }

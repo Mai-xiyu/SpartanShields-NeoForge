@@ -19,7 +19,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.network.NetworkEvent;
@@ -69,7 +68,7 @@ public class ShieldBashPacket
 						if(packet.attackEntity && victim != null && victim instanceof LivingEntity)
 						{
 							// Deal minimal damage and knock back foes
-							int knockLvl = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.KNOCKBACK, shieldStack);
+							int knockLvl = shieldStack.getEnchantmentLevel(Enchantments.KNOCKBACK);
 							
 							// Decide between increased knockback or bashing multiple foes similar to sweeping with a sword (currently implemented)
 							//if(isTowerShield)
@@ -113,7 +112,7 @@ public class ShieldBashPacket
 			
 			float bashDamage = 1.0f;
 			// Apply the Payback damage bonus if necessary
-			if(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PAYBACK.get(), shieldStack) != 0)
+			if(shieldStack.getEnchantmentLevel(ModEnchantments.PAYBACK.get()) != 0)
 			{
 				bashDamage += shieldStack.getOrCreateTag().getFloat(PaybackEnchantment.NBT_PAYBACK_DMG);
 				shieldStack.getTag().putFloat(PaybackEnchantment.NBT_PAYBACK_DMG, 0.0f);
@@ -124,7 +123,7 @@ public class ShieldBashPacket
 			shieldStack.hurtAndBreak(5, player, (entity) -> entity.broadcastBreakEvent(hand));
 			
 			// Set foes on fire when hit with the Shield Bash
-			int firebrandLvl = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FIREBRAND.get(), shieldStack);
+			int firebrandLvl = shieldStack.getEnchantmentLevel(ModEnchantments.FIREBRAND.get());
 			if(firebrandLvl != 0)
 				targetEntity.setSecondsOnFire(firebrandLvl * 5);
 			

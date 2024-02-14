@@ -1,36 +1,36 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanshields:type_disabled",
+      "disabled": [
+        "modded",
+        "silver"
+      ]
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/silver"
+      }
+    }
+  ],
   "group": "spartanshields:silver_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/silver"
+    },
+    "O": {
+      "item": "spartanshields:wooden_basic_shield"
+    }
+  },
   "pattern": [
     " # ",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_basic_shield"
-    },
-    "#": {
-      "tag": "forge:ingots/silver"
-    }
-  },
   "result": {
     "item": "spartanshields:silver_basic_shield"
-  },
-  "conditions": [
-    {
-      "disabled": [
-        "modded",
-        "silver"
-      ],
-      "type": "spartanshields:type_disabled"
-    },
-    {
-      "value": {
-        "tag": "forge:ingots/silver",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ]
+  }
 }

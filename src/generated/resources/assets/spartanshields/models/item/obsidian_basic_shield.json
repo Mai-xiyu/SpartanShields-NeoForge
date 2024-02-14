@@ -1,14 +1,14 @@
 {
   "parent": "spartanshields:item/basic_shield_base",
-  "textures": {
-    "layer0": "spartanshields:item/obsidian_basic_shield"
-  },
   "overrides": [
     {
+      "model": "spartanshields:item/obsidian_basic_shield_blocking",
       "predicate": {
         "minecraft:blocking": 1.0
-      },
-      "model": "spartanshields:item/obsidian_basic_shield_blocking"
+      }
     }
-  ]
+  ],
+  "textures": {
+    "layer0": "spartanshields:item/obsidian_basic_shield"
+  }
 }

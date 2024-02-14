@@ -27,9 +27,9 @@ public class CommonEventHandler
 	{
 		float damage = ev.getAmount();
 		
-		if(ev.getEntityLiving() instanceof Player)
+		if(ev.getEntity() instanceof Player)
 		{
-			Player player = (Player)ev.getEntityLiving();
+			Player player = (Player)ev.getEntity();
 			Entity directEntity = ev.getSource().getDirectEntity();
 			
 			// Potential fix for Spikes damage bug with non-entity damage sources; check for entity causing damage

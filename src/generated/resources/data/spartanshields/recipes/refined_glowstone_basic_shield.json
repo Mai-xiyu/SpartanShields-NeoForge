@@ -1,39 +1,39 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "spartanshields:type_disabled",
+      "disabled": [
+        "modded"
+      ]
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/refined_glowstone"
+      }
+    }
+  ],
   "group": "spartanshields:refined_glowstone_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/refined_glowstone"
+    },
+    "O": {
+      "item": "spartanshields:wooden_basic_shield"
+    }
+  },
   "pattern": [
     " # ",
     "#O#",
     " # "
   ],
-  "key": {
-    "O": {
-      "item": "spartanshields:wooden_basic_shield"
-    },
-    "#": {
-      "tag": "forge:ingots/refined_glowstone"
-    }
-  },
   "result": {
     "item": "spartanshields:refined_glowstone_basic_shield"
-  },
-  "conditions": [
-    {
-      "disabled": [
-        "modded"
-      ],
-      "type": "spartanshields:type_disabled"
-    },
-    {
-      "modid": "mekanism",
-      "type": "forge:mod_loaded"
-    },
-    {
-      "value": {
-        "tag": "forge:ingots/refined_glowstone",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ]
+  }
 }

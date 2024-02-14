@@ -10,13 +10,13 @@ import com.oblivioussp.spartanshields.util.TierSS;
 
 import net.minecraft.world.item.Item;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class BotaniaItems 
 {
-	private static TierSS TIER_MANASTEEL = new TierSS(BotaniaAPI.instance().getManasteelItemTier(), ModTags.Items.INGOTS_MANASTEEL);
-	private static TierSS TIER_TERRASTEEL = new TierSS(BotaniaAPI.instance().getTerrasteelItemTier(), ModTags.Items.INGOTS_TERRASTEEL);
-	private static TierSS TIER_ELEMENTIUM = new TierSS(BotaniaAPI.instance().getElementiumItemTier(), ModTags.Items.INGOTS_ELEMENTIUM);
+	private static TierSS TIER_MANASTEEL = new TierSS(BotaniaAPI.instance().getManasteelItemTier(), BotaniaTags.Items.INGOTS_MANASTEEL);
+	private static TierSS TIER_TERRASTEEL = new TierSS(BotaniaAPI.instance().getTerrasteelItemTier(), BotaniaTags.Items.INGOTS_TERRASTEEL);
+	private static TierSS TIER_ELEMENTIUM = new TierSS(BotaniaAPI.instance().getElementiumItemTier(), BotaniaTags.Items.INGOTS_ELEMENTIUM);
 	
 	public static Supplier<ShieldBaseItem> createManasteelBasicShield()
 	{

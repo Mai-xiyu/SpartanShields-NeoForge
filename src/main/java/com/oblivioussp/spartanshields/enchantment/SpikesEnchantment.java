@@ -1,10 +1,9 @@
 package com.oblivioussp.spartanshields.enchantment;
 
 
-import java.util.Random;
-
 import com.oblivioussp.spartanshields.init.ModEnchantments;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -51,7 +50,7 @@ public class SpikesEnchantment extends EnchantmentSS
     @Override
     public void onUserAttacked(LivingEntity user, Entity attacker, float damage, int level)
     {
-        Random random = user.getRandom();
+        RandomSource random = user.getRandom();
         ItemStack itemStack = EnchantmentHelper.getRandomItemWith(ModEnchantments.SPIKES.get(), user).getValue();
         ItemStack activeStack = user.getUseItem();
 
@@ -72,12 +71,12 @@ public class SpikesEnchantment extends EnchantmentSS
         }
     }
 
-    public static boolean shouldHit(int level, Random rnd)
+    public static boolean shouldHit(int level, RandomSource rnd)
     {
         return level <= 0 ? false : rnd.nextFloat() < 0.20F * (float)level;
     }
 
-    public static int getDamage(int level, Random rnd)
+    public static int getDamage(int level, RandomSource rnd)
     {
     	if(level == 1)
     		return 2;

@@ -9,7 +9,6 @@ import com.oblivioussp.spartanshields.util.TierSS;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,7 +39,7 @@ public class SilverShieldItem extends BasicShieldItem implements IDamageShield
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn)
     {
     	super.appendHoverText(stack, level, tooltip, flagIn);
-    	tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".on_block", new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".shield_silver.desc").withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.GOLD));
+    	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".on_block", Component.translatable("tooltip." + ModSpartanShields.ID + ".shield_silver.desc").withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.GOLD));
     }
     
     @Override

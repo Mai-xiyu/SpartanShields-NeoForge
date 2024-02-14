@@ -7,7 +7,7 @@ import com.oblivioussp.spartanshields.util.TierSS;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -51,10 +51,10 @@ public class BlockEffectShieldItem extends BasicShieldItem implements IDamageShi
 	public void appendHoverText(ItemStack stack, Level levelIn, List<Component> tooltip, TooltipFlag flagIn) 
 	{
 		super.appendHoverText(stack, levelIn, tooltip, flagIn);
-		TranslatableComponent effectName = new TranslatableComponent(effect.getDescriptionId());
+		MutableComponent effectName = Component.translatable(effect.getDescriptionId());
 		if(effectLevel > 0)
-			effectName = new TranslatableComponent("potion.withAmplifier", effectName, new TranslatableComponent("potion.potency." + effectLevel));
-		tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".on_block", new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".inflict_mob_effect.desc", effectName.withStyle(ChatFormatting.AQUA), effectTicks / 20.0f).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.GOLD));
+			effectName = Component.translatable("potion.withAmplifier", effectName, Component.translatable("potion.potency." + effectLevel));
+		tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".on_block", Component.translatable("tooltip." + ModSpartanShields.ID + ".inflict_mob_effect.desc", effectName.withStyle(ChatFormatting.AQUA), effectTicks / 20.0f).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.GOLD));
 	}
 
 }

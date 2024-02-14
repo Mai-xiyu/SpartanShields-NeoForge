@@ -19,7 +19,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShieldDecorationRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class ShieldBannerRecipe extends ShieldDecorationRecipe
 {
@@ -142,9 +141,9 @@ public class ShieldBannerRecipe extends ShieldDecorationRecipe
         {
             ItemStack itemstack = inv.getItem(i);
 
-            if (itemstack.getItem().hasContainerItem(itemstack))
+            if (itemstack.getItem().hasCraftingRemainingItem(itemstack))
             {
-                nonnulllist.set(i, itemstack.getItem().getContainerItem(itemstack));
+                nonnulllist.set(i, itemstack.getItem().getCraftingRemainingItem(itemstack));
             }
         }
 
@@ -171,7 +170,7 @@ public class ShieldBannerRecipe extends ShieldDecorationRecipe
 		return shieldItem;
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ShieldBannerRecipe>
+	public static class Serializer implements RecipeSerializer<ShieldBannerRecipe>
 	{
 		public Serializer()
 		{
@@ -205,7 +204,7 @@ public class ShieldBannerRecipe extends ShieldDecorationRecipe
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, ShieldBannerRecipe recipe) 
 		{
-			buffer.writeResourceLocation(recipe.shieldItem.getRegistryName());
+			buffer.writeResourceLocation(ForgeRegistries.ITEMS.getKey(recipe.shieldItem));
 		}
 		
 		

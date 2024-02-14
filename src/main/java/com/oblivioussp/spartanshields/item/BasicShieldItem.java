@@ -11,7 +11,6 @@ import com.oblivioussp.spartanshields.util.TierSS;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -50,7 +49,7 @@ public class BasicShieldItem extends ShieldBaseItem
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn)
     {
-		tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".protection", this.getMaxDamage(stack)));
+		tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".protection", this.getMaxDamage(stack)));
 		
     	if(doCraftCheck && levelIn != null)
     	{
@@ -65,15 +64,15 @@ public class BasicShieldItem extends ShieldBaseItem
 
     	if(!canBeCrafted)
     	{
-    		tooltip.add(new TranslatableComponent(String.format("tooltip.%s.uncraftable_missing_material", ModSpartanShields.ID), material.getRepairTagName()).withStyle(ChatFormatting.RED));
+    		tooltip.add(Component.translatable(String.format("tooltip.%s.uncraftable_missing_material", ModSpartanShields.ID), material.getRepairTagName()).withStyle(ChatFormatting.RED));
     	}
     	
     	/*if(isTowerShield && !stack.isEmpty() && stack.hasTag() && stack.getTag().contains("BlockEntityTag"))
         {
     		DyeColor dyeColor = ShieldItem.getColor(stack);
     		tooltip.add(new TextComponent(""));
-    		tooltip.add(new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".has_patterns"));
-    		tooltip.add(new TranslatableComponent(String.format("block.minecraft.%s_banner", dyeColor.name().toLowerCase())).withStyle(ChatFormatting.BOLD, ChatFormatting.GRAY));
+    		tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".has_patterns"));
+    		tooltip.add(Component.translatable(String.format("block.minecraft.%s_banner", dyeColor.name().toLowerCase())).withStyle(ChatFormatting.BOLD, ChatFormatting.GRAY));
     		BannerItem.appendHoverTextFromBannerBlockEntityTag(stack, tooltip);
         }
     	

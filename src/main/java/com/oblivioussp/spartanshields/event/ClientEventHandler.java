@@ -13,7 +13,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -25,8 +25,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
-import net.minecraftforge.client.event.InputEvent.MouseInputEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,7 +35,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 public class ClientEventHandler 
 {
 	@SubscribeEvent
-	public static void onMouseInputEvent(MouseInputEvent ev)
+	public static void onMouseInputEvent(InputEvent.MouseButton ev)
 	{
 /*		if(canShieldBash())
 			doShieldBash();*/
@@ -44,7 +43,7 @@ public class ClientEventHandler
 	}
 	
 	@SubscribeEvent
-	public static void onKeyboardInputEvent(KeyInputEvent ev)
+	public static void onKeyboardInputEvent(InputEvent.Key ev)
 	{
 /*		if(canShieldBash())
 			doShieldBash();*/
@@ -250,9 +249,9 @@ public class ClientEventHandler
 		if(!stack.isEmpty() && !Config.INSTANCE.disableShieldBash.get() && stack.is(ModItemTags.SHIELDS_WITH_BASH) && stack.getItem().canPerformAction(stack, ToolActions.SHIELD_BLOCK))
 		{
 			KeyMapping boundKey = ModKeyBinds.KEY_ALT_SHIELD_BASH.isUnbound() ? Minecraft.getInstance().options.keyAttack : ModKeyBinds.KEY_ALT_SHIELD_BASH;
-			ev.getToolTip().add(1, new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".shield_bash", 
-					new TranslatableComponent("tooltip." + ModSpartanShields.ID + ".shield_bash.value", 
-					new TranslatableComponent(boundKey.getTranslatedKeyMessage().getString().toUpperCase()).withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.GOLD));
+			ev.getToolTip().add(1, Component.translatable("tooltip." + ModSpartanShields.ID + ".shield_bash", 
+					Component.translatable("tooltip." + ModSpartanShields.ID + ".shield_bash.value", 
+					Component.translatable(boundKey.getTranslatedKeyMessage().getString().toUpperCase()).withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.GOLD));
 		}
 	}
 }

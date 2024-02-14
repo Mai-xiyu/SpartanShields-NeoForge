@@ -61,13 +61,6 @@ public class TypeDisabledCondition implements ICondition
 		}
 		return true;
 	}
-	
-	@Override
-//	@Deprecated(forRemoval = true, since = "1.18.2")
-	public boolean test() 
-	{
-		return false;
-	}
 
 	public static class Serializer implements IConditionSerializer<TypeDisabledCondition>
 	{
