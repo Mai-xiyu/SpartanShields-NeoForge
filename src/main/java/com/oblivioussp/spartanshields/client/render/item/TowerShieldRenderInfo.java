@@ -1,13 +1,11 @@
 package com.oblivioussp.spartanshields.client.render.item;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.TextureStitchEvent;
 
-@SuppressWarnings("deprecation")
 public class TowerShieldRenderInfo
 {
 	protected final ResourceLocation textureNoPattern;
@@ -21,19 +19,13 @@ public class TowerShieldRenderInfo
 		textureNoPattern = texNoPattern;
 		texturePattern = texPattern;
 		
-		materialNoPattern = new Material(TextureAtlas.LOCATION_BLOCKS, textureNoPattern);
-		materialPattern = new Material(TextureAtlas.LOCATION_BLOCKS, texturePattern);
+		materialNoPattern = new Material(Sheets.SHIELD_SHEET, textureNoPattern);
+		materialPattern = new Material(Sheets.SHIELD_SHEET, texturePattern);
 	}
 	
 	public Material getMaterial(boolean isPatterned)
 	{
 		return isPatterned ? materialPattern : materialNoPattern;
-	}
-	
-	public void stitchTextures(TextureStitchEvent.Pre ev)
-	{
-		ev.addSprite(textureNoPattern);
-		ev.addSprite(texturePattern);
 	}
 	
 	public boolean hasLayers()

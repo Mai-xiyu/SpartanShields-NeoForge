@@ -6,11 +6,13 @@ import com.oblivioussp.spartanshields.item.FEPoweredShieldItem;
 import com.oblivioussp.spartanshields.util.Log;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -39,9 +41,9 @@ public class PoweredShieldUpgradeRecipe implements CraftingRecipe, IShapedRecipe
 	}
 
 	@Override
-	public ItemStack assemble(CraftingContainer inv) 
+	public ItemStack assemble(CraftingContainer inv, RegistryAccess registryAccess) 
 	{
-		ItemStack resultStack = getResultItem().copy();
+		ItemStack resultStack = getResultItem(registryAccess).copy();
 		//CompoundNBT nbt = new CompoundNBT();
 		int feToTransfer = 0;
 		
@@ -73,9 +75,9 @@ public class PoweredShieldUpgradeRecipe implements CraftingRecipe, IShapedRecipe
 	}
 
 	@Override
-	public ItemStack getResultItem() 
+	public ItemStack getResultItem(RegistryAccess registryAccess) 
 	{
-		return internalRecipe.getResultItem();
+		return internalRecipe.getResultItem(registryAccess);
 	}
 
 	@Override
@@ -169,5 +171,11 @@ public class PoweredShieldUpgradeRecipe implements CraftingRecipe, IShapedRecipe
 			}
 		}
 		
+	}
+
+	@Override
+	public CraftingBookCategory category() 
+	{
+		return CraftingBookCategory.EQUIPMENT;
 	}
 }

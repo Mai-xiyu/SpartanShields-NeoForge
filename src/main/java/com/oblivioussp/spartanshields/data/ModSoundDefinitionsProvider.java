@@ -3,20 +3,20 @@ package com.oblivioussp.spartanshields.data;
 import com.oblivioussp.spartanshields.ModSpartanShields;
 import com.oblivioussp.spartanshields.init.ModSounds;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import net.minecraftforge.common.data.SoundDefinition.Sound;
 import net.minecraftforge.common.data.SoundDefinition.SoundType;
+import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundDefinitionsProvider extends SoundDefinitionsProvider 
 {
 
-	public ModSoundDefinitionsProvider(DataGenerator generator, ExistingFileHelper helper) 
+	public ModSoundDefinitionsProvider(PackOutput output, ExistingFileHelper helper) 
 	{
-		super(generator, ModSpartanShields.ID, helper);
+		super(output, ModSpartanShields.ID, helper);
 	}
 
 	@Override

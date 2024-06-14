@@ -20,31 +20,31 @@ public class BotaniaItems
 	
 	public static Supplier<ShieldBaseItem> createManasteelBasicShield()
 	{
-		return () -> new BotaniaShieldItem(TIER_MANASTEEL, Defaults.DefaultDurabilityManasteelShield, false, 60, new Item.Properties().tab(ModItems.tabSS));
+		return () -> new BotaniaShieldItem(TIER_MANASTEEL, Defaults.DefaultDurabilityManasteelShield, false, 60, new Item.Properties());
 	}
 	
 	public static Supplier<ShieldBaseItem> createTerrasteelBasicShield()
 	{
-		return () -> new BotaniaShieldItem(TIER_TERRASTEEL, Defaults.DefaultDurabilityTerrasteelShield, false, 100, new Item.Properties().tab(ModItems.tabSS));
+		return () -> new BotaniaShieldItem(TIER_TERRASTEEL, Defaults.DefaultDurabilityTerrasteelShield, false, 100, new Item.Properties());
 	}
 	
 	public static Supplier<ShieldBaseItem> createElementiumBasicShield()
 	{
-		return () -> new ElementiumShieldItem(TIER_ELEMENTIUM, Defaults.DefaultDurabilityElementiumShield, false, 60, new Item.Properties().tab(ModItems.tabSS));
+		return () -> new ElementiumShieldItem(TIER_ELEMENTIUM, Defaults.DefaultDurabilityElementiumShield, false, 60, new Item.Properties());
 	}
 	
 	public static Supplier<ShieldBaseItem> createManasteelTowerShield()
 	{
-		return () -> new BotaniaShieldItem(TIER_MANASTEEL, Defaults.DefaultDurabilityManasteelShield, true, 60, new Item.Properties().tab(ModItems.tabSS));
+		return () -> new BotaniaShieldItem(TIER_MANASTEEL, Defaults.DefaultDurabilityManasteelShield, true, 60, new Item.Properties());
 	}
 	
 	public static Supplier<ShieldBaseItem> createTerrasteelTowerShield()
 	{
-		return () -> new BotaniaShieldItem(TIER_TERRASTEEL, Defaults.DefaultDurabilityTerrasteelShield, true, 100, new Item.Properties().tab(ModItems.tabSS));
+		return () -> new BotaniaShieldItem(TIER_TERRASTEEL, Defaults.DefaultDurabilityTerrasteelShield, true, 100, new Item.Properties());
 	}
 	
 	public static Supplier<ShieldBaseItem> createElementiumTowerShield()
 	{
-		return () -> new ElementiumShieldItem(TIER_ELEMENTIUM, Defaults.DefaultDurabilityElementiumShield, true, 60, new Item.Properties().tab(ModItems.tabSS));
+		return () -> new ElementiumShieldItem(TIER_ELEMENTIUM, Defaults.DefaultDurabilityElementiumShield, true, 60, new Item.Properties());
 	}
 }

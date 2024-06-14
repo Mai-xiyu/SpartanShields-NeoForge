@@ -13,7 +13,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -55,7 +54,7 @@ public class ShieldBashPacket
 			ctx.get().enqueueWork(() -> 
 			{
 				ServerPlayer player = ctx.get().getSender();
-				Entity victim = player.level.getEntity(packet.entityId);
+				Entity victim = player.level().getEntity(packet.entityId);
 				
 				if(player.isBlocking())
 				{
@@ -75,8 +74,8 @@ public class ShieldBashPacket
 							//	knockLvl++;
 							if(isTowerShield)
 							{
-								double reach = player.getAttackRange();
-								for(LivingEntity entity : player.level.getEntitiesOfClass(LivingEntity.class, victim.getBoundingBox().inflate(1.0d, 0.25d, 1.0d), 
+								double reach = player.getEntityReach();
+								for(LivingEntity entity : player.level().getEntitiesOfClass(LivingEntity.class, victim.getBoundingBox().inflate(1.0d, 0.25d, 1.0d), 
 										(target) -> target != player && target != victim && !target.isAlliedTo(player) && (!(target instanceof ArmorStand) || !((ArmorStand)target).isMarker()) && player.distanceToSqr(target) < reach * reach))
 								{
 									bashEntity(entity, player, shieldStack, knockLvl, packet.hand);
@@ -85,7 +84,7 @@ public class ShieldBashPacket
 
 							boolean powerfulBash = bashEntity(victim, player, shieldStack, knockLvl, packet.hand);
 							// Increase the pitch whenever the bash damage is higher
-							player.level.playSound((Player)null, player.getX(), player.getY(), player.getZ(), ModSounds.SHIELD_BASH_HIT.get(), player.getSoundSource(), 1.0F, powerfulBash ? 2.0f : 1.0f);
+							player.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), ModSounds.SHIELD_BASH_HIT.get(), player.getSoundSource(), 1.0F, powerfulBash ? 2.0f : 1.0f);
 							player.crit(victim);
 							
 							// Add to shield bash hits stat
@@ -94,7 +93,7 @@ public class ShieldBashPacket
 						else
 						{
 							// ...swing and a miss...
-							player.level.playSound((Player)null, player.getX(), player.getY(), player.getZ(), ModSounds.SHIELD_BASH_MISS.get(), player.getSoundSource(), 0.5f, 0.01f);
+							player.level().playSound((Player)null, player.getX(), player.getY(), player.getZ(), ModSounds.SHIELD_BASH_MISS.get(), player.getSoundSource(), 0.5f, 0.01f);
 						}
 						player.stopUsingItem();
 						//player.swing(packet.hand);
@@ -119,7 +118,7 @@ public class ShieldBashPacket
 			}
 			
 			// Finally deal damage.
-			targetEntity.hurt(DamageSource.playerAttack(player), bashDamage);
+			targetEntity.hurt(player.damageSources().playerAttack(player), bashDamage);
 			shieldStack.hurtAndBreak(5, player, (entity) -> entity.broadcastBreakEvent(hand));
 			
 			// Set foes on fire when hit with the Shield Bash

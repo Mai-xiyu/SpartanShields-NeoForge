@@ -37,88 +37,14 @@ public class ClientEventHandler
 	@SubscribeEvent
 	public static void onMouseInputEvent(InputEvent.MouseButton ev)
 	{
-/*		if(canShieldBash())
-			doShieldBash();*/
 		checkForShieldBash();
 	}
 	
 	@SubscribeEvent
 	public static void onKeyboardInputEvent(InputEvent.Key ev)
 	{
-/*		if(canShieldBash())
-			doShieldBash();*/
 		checkForShieldBash();
 	}
-	
-/*	protected static boolean canShieldBash()
-	{
-		Minecraft mc = Minecraft.getInstance();
-		
-		Player player = mc.player;
-
-		// Ensure the following
-		// - Shield Bashing is NOT disabled
-		// - The game is NOT paused
-		// - The game is NOT in any GUI
-		// - The game is loaded into a world
-		// - The player is valid. If there is no valid player, do not execute this event as it will cause a crash
-		// If not, then don't continue the attack
-		if(Config.INSTANCE.disableShieldBash.get() || mc.level == null || mc.screen != null || Minecraft.getInstance().isPaused() || player == null)
-			return false;
-		
-		// Ensure that the player is blocking first
-		if(player.isBlocking())
-		{
-			ItemStack shieldStack = ItemStack.EMPTY;
-			ItemStack usedItem = player.getUseItem();
-			if(usedItem.is(ModItemTags.SHIELDS_WITH_BASH) && usedItem.getItem().canPerformAction(usedItem, ToolActions.SHIELD_BLOCK) && 
-					(ModKeyBinds.KEY_ALT_SHIELD_BASH.isUnbound() ? mc.options.keyAttack.consumeClick() : ModKeyBinds.KEY_ALT_SHIELD_BASH.isDown()))
-			{
-				shieldStack = player.getUseItem();
-			}
-			else
-				return false;
-			
-			return !player.getCooldowns().isOnCooldown(shieldStack.getItem());
-		}
-		return false;
-	}
-	
-	protected static void doShieldBash()
-	{
-		Minecraft mc = Minecraft.getInstance();
-		
-		Player player = mc.player;
-		InteractionHand shieldHand = player.getUsedItemHand();
-		
-		HitResult result = getEntityMouseOverExtended(mc.gameMode.getPickRange());
-		
-		if(result != null)
-		{
-			int entId = -1;
-			boolean attackEntity = true;
-			EntityHitResult entityRayTrace = null;
-			if(result instanceof EntityHitResult)
-				entityRayTrace = (EntityHitResult)result;
-
-			if(entityRayTrace != null && entityRayTrace.getEntity() != null && entityRayTrace.getEntity() != player)
-			{
-				Log.debug("Hit Entity with Shield Bash! - " + entityRayTrace.getEntity().toString());
-				entId = entityRayTrace.getEntity().getId();
-			}
-			
-			if(entId == -1)
-			{
-				entId = 0;
-				attackEntity = false;
-				//Log.debug("Shield Bash has missed!");
-			}
-			
-			player.swing(shieldHand, true);
-//			Log.debug("Shield Hand: " + shieldHand.toString());
-			NetworkHandler.sendPacketToServer(new ShieldBashPacket(shieldHand, entId, attackEntity));
-		}
-	}*/
 	
 	protected static void checkForShieldBash()
 	{
@@ -227,14 +153,14 @@ public class ClientEventHandler
 				Vec3 hitVec = entityRayTrace.getLocation();
 				double d2 = eyePos.distanceToSqr(hitVec);
 				if(flag && d2 > (reach * reach))
-					result = BlockHitResult.miss(hitVec, Direction.getNearest(lookVec.x, lookVec.y, lookVec.z), new BlockPos(hitVec));
+					result = BlockHitResult.miss(hitVec, Direction.getNearest(lookVec.x, lookVec.y, lookVec.z), BlockPos.containing(hitVec));
 				
 				else if(d2 < d1 || result == null)
 					result = entityRayTrace;
 			}
 			else
 			{
-				result = BlockHitResult.miss(attackVec, Direction.getNearest(lookVec.x, lookVec.y, lookVec.z), new BlockPos(attackVec));
+				result = BlockHitResult.miss(attackVec, Direction.getNearest(lookVec.x, lookVec.y, lookVec.z), BlockPos.containing(attackVec));
 			}
 		}
 		

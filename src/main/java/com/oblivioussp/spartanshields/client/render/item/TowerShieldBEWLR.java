@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMap.Builder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
+import com.oblivioussp.spartanshields.client.model.DarkSteelTowerShieldModel;
 import com.oblivioussp.spartanshields.client.model.ElementiumTowerShieldModel;
 import com.oblivioussp.spartanshields.client.model.EnderiumShieldModel;
 import com.oblivioussp.spartanshields.client.model.KiteShieldModel;
@@ -22,7 +23,6 @@ import com.oblivioussp.spartanshields.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.Material;
@@ -32,6 +32,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
@@ -50,6 +51,7 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
 	private ShieldBaseModel terrasteelShield;
 	private ShieldBaseModel elementiumShield;
 	private ShieldBaseModel mekanismShield;
+	private ShieldBaseModel darkSteelShield;
 	private Map<Item, ShieldBaseModel> modelMap;
 	private Map<Item, TowerShieldRenderInfo> renderInfoMap;
 	private TowerShieldBEWLR()
@@ -91,6 +93,8 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
 		renderInfoMapBuilder.put(ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get(), TextureStitcher.RENDER_INFO_ELITE_MEKANISTS_TOWER_SHIELD);
 		renderInfoMapBuilder.put(ModItems.ULTIMATE_MEKANISTS_TOWER_SHIELD.get(), TextureStitcher.RENDER_INFO_ULTIMATE_MEKANISTS_TOWER_SHIELD);
 		
+		renderInfoMapBuilder.put(ModItems.DARK_STEEL_RIOT_TOWER_SHIELD.get(), TextureStitcher.RENDER_INFO_DARK_STEEL_TOWER_SHIELD);
+		
 		renderInfoMap = renderInfoMapBuilder.build();
 	}
 	
@@ -109,6 +113,7 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
 		terrasteelShield = new TerrasteelTowerShieldModel(mc.getEntityModels().bakeLayer(ModelLayers.TERRASTEEL_SHIELD));
 		elementiumShield = new ElementiumTowerShieldModel(mc.getEntityModels().bakeLayer(ModelLayers.ELEMENTIUM_SHIELD));
 		mekanismShield = new MekanismTowerShieldModel(mc.getEntityModels().bakeLayer(ModelLayers.MEKANISM_SHIELD));
+		darkSteelShield = new DarkSteelTowerShieldModel(mc.getEntityModels().bakeLayer(ModelLayers.DARK_STEEL_SHIELD));
 		
 		Builder<Item, ShieldBaseModel> modelMapBuilder = ImmutableMap.builder();
 		modelMapBuilder.put(ModItems.WOODEN_TOWER_SHIELD.get(), baseShield);
@@ -145,11 +150,13 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
 		modelMapBuilder.put(ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get(), mekanismShield);
 		modelMapBuilder.put(ModItems.ULTIMATE_MEKANISTS_TOWER_SHIELD.get(), mekanismShield);
 		
+		modelMapBuilder.put(ModItems.DARK_STEEL_RIOT_TOWER_SHIELD.get(), darkSteelShield);
+		
 		modelMap = modelMapBuilder.build();
 	}
 	
 	@Override
-	public void renderByItem(ItemStack stack, TransformType transformType, PoseStack mStack,
+	public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack mStack,
 			MultiBufferSource buffer, int packedLight, int packedOverlay)
 	{
 		ShieldBaseModel model = modelMap.get(stack.getItem());

@@ -44,7 +44,7 @@ public class MekanismTowerShieldModel extends ShieldBaseModel
 		PartDefinition platePart = part.addOrReplaceChild(PART_PLATE, CubeListBuilder.create().texOffs(0, 0).addBox(-6.0f, -7.0f, -2.0f, 12.0f, 17.0f, 1.0f), PartPose.ZERO);
 		part.addOrReplaceChild(PART_HANDLE, CubeListBuilder.create().texOffs(26, 0).addBox(-1.0f, -3.0f, -1.0f, 2.0f, 6.0f, 6.0f), PartPose.ZERO);
 		platePart.addOrReplaceChild("plate_lower_main", CubeListBuilder.create().texOffs(0, 17).addBox(-6.0f, 0.0f, 0.0f, 12.0f, 5.0f, 1.0f), PartPose.offsetAndRotation(0.0f, 10.0f, -2.0f, 0.5236f, 0.0f, 0.0f));
-		part.addOrReplaceChild(PART_PLATE_EXTRA, CubeListBuilder.create().texOffs(0, 0).addBox(-6.0f, -7.0f, -2.0f, 12.0f, 17.0f, 1.0f)
+		part.addOrReplaceChild(PART_PLATE_EXTRA, CubeListBuilder.create()/*.texOffs(0, 0).addBox(-6.0f, -7.0f, -2.0f, 12.0f, 17.0f, 1.0f)*/
 				.texOffs(59, 16).addBox(7.5f, -6.5f, -1.0f, 1.0f, 15.0f, 1.0f)
 				.texOffs(50, 0).addBox(5.5f, -7.0f, -2.5f, 1.0f, 16.0f, 3.0f)
 				.texOffs(59, 0).addBox(-8.5f, -6.5f, -1.0f, 1.0f, 15.0f, 1.0f)

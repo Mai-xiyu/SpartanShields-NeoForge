@@ -6,6 +6,7 @@ import com.oblivioussp.spartanshields.data.ModRecipeProvider;
 import com.oblivioussp.spartanshields.data.ModSoundDefinitionsProvider;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -18,9 +19,10 @@ public class DataGenEventHandler
 	public static void onDataGather(GatherDataEvent ev)
 	{
 		DataGenerator gen = ev.getGenerator();
-		gen.addProvider(ev.includeServer(), new ModItemTagsProvider(gen, ev.getExistingFileHelper()));
-		gen.addProvider(ev.includeServer(), new ModRecipeProvider(gen));
-		gen.addProvider(true, new ModItemModelProvider(gen, ev.getExistingFileHelper()));
-		gen.addProvider(true, new ModSoundDefinitionsProvider(gen, ev.getExistingFileHelper()));
+		PackOutput output = gen.getPackOutput();
+		gen.addProvider(ev.includeServer(), new ModItemTagsProvider(output, ev.getLookupProvider(), ev.getExistingFileHelper()));
+		gen.addProvider(ev.includeServer(), new ModRecipeProvider(output));
+		gen.addProvider(true, new ModItemModelProvider(output, ev.getExistingFileHelper()));
+		gen.addProvider(true, new ModSoundDefinitionsProvider(output, ev.getExistingFileHelper()));
 	}
 }

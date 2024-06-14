@@ -6,6 +6,7 @@ import com.oblivioussp.spartanshields.init.ModRecipes;
 import com.oblivioussp.spartanshields.item.ShieldBaseItem;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +16,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShieldDecorationRecipe;
 import net.minecraft.world.level.Level;
@@ -27,7 +29,7 @@ public class ShieldBannerRecipe extends ShieldDecorationRecipe
 
 	public ShieldBannerRecipe(ResourceLocation loc, Item shield)
 	{
-		super(loc);
+		super(loc, CraftingBookCategory.EQUIPMENT);
 		shieldItem = shield;
 	}
 	
@@ -89,7 +91,7 @@ public class ShieldBannerRecipe extends ShieldDecorationRecipe
      * Returns an Item that is the result of this recipe
      */
 	@Override
-    public ItemStack assemble(CraftingContainer inv)
+    public ItemStack assemble(CraftingContainer inv, RegistryAccess registryAccess)
     {
         ItemStack itemstack = ItemStack.EMPTY;
         ItemStack itemstack1 = ItemStack.EMPTY;
@@ -127,7 +129,7 @@ public class ShieldBannerRecipe extends ShieldDecorationRecipe
     }
 
 	@Override
-    public ItemStack getResultItem()
+    public ItemStack getResultItem(RegistryAccess registryAccess)
     {
         return ItemStack.EMPTY;
     }

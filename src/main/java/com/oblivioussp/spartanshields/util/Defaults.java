@@ -58,4 +58,7 @@ public class Defaults
     public static final int DefaultFEMaxRecieveMekanismElite = 12000;
     public static final int DefaultFECapacityMekanismUltimate = 3200000;
     public static final int DefaultFEMaxRecieveMekanismUltimate = 16000;
+    
+    public static final int DefaultMuICapacityDarkSteel = 2000000;
+    public static final int DefaultMuIMaxRecieveDarkSteel = 10000;
 }

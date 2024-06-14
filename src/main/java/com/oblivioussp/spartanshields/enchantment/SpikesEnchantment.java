@@ -4,7 +4,6 @@ package com.oblivioussp.spartanshields.enchantment;
 import com.oblivioussp.spartanshields.init.ModEnchantments;
 
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -61,7 +60,7 @@ public class SpikesEnchantment extends EnchantmentSS
 	        {
 	            float spikesDamage = (float)getDamage(level, random);
 	            if (attacker != null)
-	                attacker.hurt(DamageSource.thorns(user), spikesDamage);
+	                attacker.hurt(user.damageSources().thorns(user), spikesDamage);
 	
 	            if (!itemStack.isEmpty())
 	            	itemStack.hurtAndBreak(9, user, (livingEntity) -> livingEntity.broadcastBreakEvent(livingEntity.getUsedItemHand()));

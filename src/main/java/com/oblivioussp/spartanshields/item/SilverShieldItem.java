@@ -9,7 +9,6 @@ import com.oblivioussp.spartanshields.util.TierSS;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -52,7 +51,7 @@ public class SilverShieldItem extends BasicShieldItem implements IDamageShield
     		
     		if(attackerLiving.getMobType() == MobType.UNDEAD)
     		{
-    			attackerLiving.hurt(DamageSource.playerAttack(player), 2.0f);
+    			attackerLiving.hurt(player.damageSources().playerAttack(player), 2.0f);
     		}
     	}
     }

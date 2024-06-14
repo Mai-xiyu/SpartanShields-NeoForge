@@ -15,7 +15,6 @@ import com.oblivioussp.spartanshields.util.PowerUnit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -24,7 +23,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -55,22 +53,6 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
 		if(FMLEnvironment.dist.isClient())
 			ClientHelper.registerPoweredShieldPropertyOverrides(this);
 	}
-	
-    /**
-     * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
-     */
-    @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> subItems)
-    {
-    	if(allowedIn(group))
-    	{
-	    	ItemStack fullShield = new ItemStack(this);
-	    	fullShield.getOrCreateTag().putInt(NBT_ENERGY, energyCapacity);
-	    	
-	        subItems.add(new ItemStack(this));
-	        subItems.add(fullShield);
-    	}
-    }
 	
 	@Override
 	public void setDamage(ItemStack stack, int damage)
@@ -137,12 +119,11 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn)
     {
-		LocalizedNumberFormatter formatter = NumberFormatter.withLocale(Minecraft.getInstance().getLanguageManager().getSelected().getJavaLocale());
+		LocalizedNumberFormatter formatter = NumberFormatter.withLocale(Minecraft.getInstance().getLanguageManager().getJavaLocale());
     	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getCapacityTranslationKey(), formatter.format(Mth.floor(this.getFEStored(stack) * preferredEnergyUnit.getEnergyScaleToFE())), formatter.format(Mth.floor(this.getFECapacity(stack)  * preferredEnergyUnit.getEnergyScaleToFE()))));
     	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getEnergyChargeRateTranslationKey(), formatter.format(Mth.floor(this.maxEnergyReceive * preferredEnergyUnit.getEnergyScaleToFE()))));
     	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + preferredEnergyUnit.getEnergyPerDamageTranslationKey(), formatter.format(Mth.floor(Config.INSTANCE.damageToFEMultiplier.get() * 2 * preferredEnergyUnit.getEnergyScaleToFE()))));
     	tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + "." + "fe_shield.desc"));
-//    	this.addShieldBashTooltip(stack, level, tooltip, flagIn);
     }
 	
     @Override
@@ -183,7 +164,10 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
 		shieldStack.getTag().putInt(NBT_ENERGY, currentEnergy);
 		
 		if(currentEnergy == 0)
-			player.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + player.level.random.nextFloat() * 0.4F);
+		{
+			Level level = player.level();
+			player.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + level.random.nextFloat() * 0.4F);
+		}
 	}
 	
 	public FEPoweredShieldItem setCapacity(int capacity) 

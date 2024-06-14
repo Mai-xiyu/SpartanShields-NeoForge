@@ -20,7 +20,7 @@
   "item.spartanshields.platinum_basic_shield": "Platinum Plated Shield",
   "item.spartanshields.aluminum_basic_shield": "Aluminum Plated Shield",
   
-  "item.spartanshields.dark_steel_riot_shield": "Dark Steel Riot Shield",
+  "item.spartanshields.dark_steel_riot_basic_shield": "Dark Steel Riot Shield",
   "item.spartanshields.flux_infused_shield": "Flux-Infused Shield",
   "item.spartanshields.infused_riot_shield": "Infused Riot Shield",
 
@@ -70,7 +70,7 @@
   "item.spartanshields.platinum_tower_shield": "Platinum Tower Shield",
   "item.spartanshields.aluminum_tower_shield": "Aluminum Tower Shield",
   
-  "item.spartanshields.dark_steel_tower_shield": "Dark Steel Tower Shield",
+  "item.spartanshields.dark_steel_riot_tower_shield": "Dark Steel Riot Tower Shield",
   "item.spartanshields.infused_tower_shield": "Infused Tower Shield",
   
   "item.spartanshields.manasteel_tower_shield": "Manasteel Tower Shield",

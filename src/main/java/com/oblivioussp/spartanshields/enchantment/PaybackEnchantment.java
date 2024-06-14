@@ -16,7 +16,6 @@ public class PaybackEnchantment extends EnchantmentSS
 	public PaybackEnchantment(Rarity rarityIn, EquipmentSlot... slots)
 	{
 		super(rarityIn, EnchantmentSS.TYPE_SHIELD, slots);
-//		this.setRegistryName(ModSpartanShields.ID, "payback");
 	}
 	
 	@Override
@@ -52,7 +51,7 @@ public class PaybackEnchantment extends EnchantmentSS
 			
 			// Let the player know that the shield is at maximum damage capacity
 			if(currentDmg == maxDmg)
-				user.level.playSound((Player)null, user.getX(), user.getY(), user.getZ(), ModSounds.SHIELD_PAYBACK_CHARGE.get(), user.getSoundSource(), 0.5f, 2.0f);
+				user.level().playSound((Player)null, user.getX(), user.getY(), user.getZ(), ModSounds.SHIELD_PAYBACK_CHARGE.get(), user.getSoundSource(), 0.5f, 2.0f);
 		}
 	}
 	

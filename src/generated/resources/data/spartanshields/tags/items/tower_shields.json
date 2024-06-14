@@ -29,6 +29,7 @@
     "spartanshields:advanced_mekanists_tower_shield",
     "spartanshields:elite_mekanists_tower_shield",
     "spartanshields:ultimate_mekanists_tower_shield",
+    "spartanshields:dark_steel_riot_tower_shield",
     {
       "id": "mekanismtools:bronze_shield",
       "required": false

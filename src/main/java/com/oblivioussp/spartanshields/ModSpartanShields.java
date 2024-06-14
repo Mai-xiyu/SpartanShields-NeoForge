@@ -1,6 +1,7 @@
 package com.oblivioussp.spartanshields;
 
 import com.oblivioussp.spartanshields.config.Config;
+import com.oblivioussp.spartanshields.init.ModCreativeTabs;
 import com.oblivioussp.spartanshields.init.ModEnchantments;
 import com.oblivioussp.spartanshields.init.ModItems;
 import com.oblivioussp.spartanshields.init.ModRecipes;
@@ -33,6 +34,7 @@ public class ModSpartanShields
         modBus.addListener(this::onClientSetup);
         
         ModItems.REGISTER.register(modBus);
+        ModCreativeTabs.REGISTER.register(modBus);
         ModEnchantments.REGISTER.register(modBus);
         ModRecipes.REGISTER.register(modBus);
         ModRecipes.initConditions();

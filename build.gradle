@@ -5,11 +5,11 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = mod_version
+version = "${minecraft_version}-${mod_version}"
 group = mod_group_id
 
 base {
-    archivesName = mod_id
+    archivesName = "${jar_name}"
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -26,7 +26,7 @@ minecraft {
     // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
     //
     // Parchment is an unofficial project maintained by ParchmentMC, separate from MinecraftForge
-    // Additional setup is needed to use their mappings: https://github.com/ParchmentMC/Parchment/wiki/Getting-Started
+    // Additional setup is needed to use their mappings: https://parchmentmc.org/docs/getting-started
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
@@ -73,9 +73,6 @@ minecraft {
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
-
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', mod_id
             
             property 'mixin.env.remapRefMap', 'true'
 			property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
@@ -136,7 +133,12 @@ repositories {
 	  url = "https://maven.blamejared.com/"
 	}
 	maven {
-		url = "https://maven.theillusivec4.top/"
+	  name = "Illusive Soulworks maven"
+	  url = "https://maven.theillusivec4.top/"
+	}
+	// EnderIO Maven
+	maven {
+	  url = "https://maven.rover656.dev/releases"
 	}
 /*	maven {
 		name = "CurseMaven"
@@ -167,12 +169,12 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 	
-	// At runtime, use the full Curios mod jar
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
 	// Compile against the the Curios API but don't include it at runtime
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
+	// At runtime, use the full Curios mod jar
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
     
-    implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") { transitive = false }
+    implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}-FORGE") { transitive = false }
 	implementation fg.deobf("vazkii.botania:Botania:${botania_version}-FORGE")
 	
     // Mekanism & modules
@@ -181,6 +183,10 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
+    
+    // EnderIO
+    compileOnly fg.deobf("com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api")
+    runtimeOnly fg.deobf("com.enderio:EnderIO:${minecraft_version}-${enderio_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

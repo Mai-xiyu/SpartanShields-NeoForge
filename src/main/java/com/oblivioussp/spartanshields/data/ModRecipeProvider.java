@@ -11,19 +11,20 @@ import com.oblivioussp.spartanshields.init.ModRecipes;
 import com.oblivioussp.spartanshields.item.crafting.ShieldBannerRecipeBuilder;
 import com.oblivioussp.spartanshields.util.Constants;
 
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.UpgradeRecipeBuilder;
+import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
@@ -35,13 +36,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModRecipeProvider extends RecipeProvider 
 {
 
-	public ModRecipeProvider(DataGenerator generator) 
+	public ModRecipeProvider(PackOutput output) 
 	{
-		super(generator);
+		super(output);
 	}
 	
 	@Override
-	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) 
+	protected void buildRecipes(Consumer<FinishedRecipe> consumer) 
 	{
 		TagKey<Item> planks = ItemTags.create(new ResourceLocation("minecraft:planks"));
 		TagKey<Item> stick = ItemTags.create(new ResourceLocation("forge:rods/wooden"));
@@ -78,8 +79,8 @@ public class ModRecipeProvider extends RecipeProvider
 		TagKey<Item> lumiumIngot = ItemTags.create(new ResourceLocation("forge:ingots/lumium"));
 		TagKey<Item> enderiumIngot = ItemTags.create(new ResourceLocation("forge:ingots/enderium"));
 		
-		ShapedRecipeBuilder.shaped(ModItems.WOODEN_BASIC_SHIELD.get()).define('#', planks).define('/', stick).pattern(" # ").pattern("#/#").pattern(" # ").group(ModSpartanShields.ID + ":wood_shields").unlockedBy("has_planks", hasItem(planks)).save(consumer);
-		ShapedRecipeBuilder.shaped(ModItems.WOODEN_TOWER_SHIELD.get()).define('#', planks).define('/', stick).pattern("###").pattern("#/#").pattern(" # ").group(ModSpartanShields.ID + ":wood_shields").unlockedBy("has_planks", hasItem(planks)).save(consumer);
+		ConditionalShapedRecipeBuilder.shaped(ModItems.WOODEN_BASIC_SHIELD.get()).define('#', planks).define('/', stick).pattern(" # ").pattern("#/#").pattern(" # ").group(ModSpartanShields.ID + ":wood_shields").unlockedBy("has_planks", hasItem(planks)).save(consumer);
+		ConditionalShapedRecipeBuilder.shaped(ModItems.WOODEN_TOWER_SHIELD.get()).define('#', planks).define('/', stick).pattern("###").pattern("#/#").pattern(" # ").group(ModSpartanShields.ID + ":wood_shields").unlockedBy("has_planks", hasItem(planks)).save(consumer);
 
 		basicUpgradeRecipe(ModItems.STONE_BASIC_SHIELD.get(), ModItems.WOODEN_BASIC_SHIELD.get(), cobblestone, "stone_shields", "has_cobblestone", consumer);
 		towerUpgradeRecipe(ModItems.STONE_TOWER_SHIELD.get(), ModItems.WOODEN_TOWER_SHIELD.get(), cobblestone, "stone_shields", "has_cobblestone", consumer);
@@ -165,68 +166,26 @@ public class ModRecipeProvider extends RecipeProvider
 			mekanismShieldUpgradeRecipe(ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get(), ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get(), reinforcedAlloy, advancedControlCircuit, energyTablet, steelIngot, "has_basic_mekanists_shield", consumer);
 			mekanismShieldUpgradeRecipe(ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get(), ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get(), atomicAlloy, eliteControlCircuit, energyTablet, steelIngot, "has_advanced_mekanists_shield", consumer);
 			mekanismShieldUpgradeRecipe(ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get(), ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get(), atomicAlloy, ultimateControlCircuit, energyTablet, steelIngot, "has_elite_mekanists_shield", consumer);
-/*			ConditionalShapedRecipeBuilder.shaped(ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get()).
-				define('a', infusedAlloy).define('d', enrichedDiamond).define('c', basicControlCircuit).define('b', energyTablet).
-				define('#', steelIngot).define('O', ModItems.WOODEN_BASIC_SHIELD.get()).
-				pattern("ada").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_energy_tablet", hasItem(energyTablet)).
-				save(consumer);
-			ConditionalShapedRecipeBuilder.shapedCustom(ModRecipes.POWERED_SHIELD_UPGRADE.get(), ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get()).
-				define('a', reinforcedAlloy).define('c', advancedControlCircuit).
-				define('O', ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get()).define('b', energyTablet).define('#', steelIngot).
-				pattern("a a").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_basic_mekanists_shield", hasItem(ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get())).
-				save(consumer);
-			ConditionalShapedRecipeBuilder.shapedCustom(ModRecipes.POWERED_SHIELD_UPGRADE.get(), ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get()).
-				define('a', atomicAlloy).define('c', eliteControlCircuit).
-				define('O', ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get()).define('b', energyTablet).define('#', steelIngot).
-				pattern("a a").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_advanced_mekanists_shield", hasItem(ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get())).
-				save(consumer);
-			ConditionalShapedRecipeBuilder.shapedCustom(ModRecipes.POWERED_SHIELD_UPGRADE.get(), ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get()).
-				define('a', atomicAlloy).define('c', ultimateControlCircuit).
-				define('O', ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get()).define('b', energyTablet).define('#', steelIngot).
-				pattern("a a").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_elite_mekanists_shield", hasItem(ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get())).
-				save(consumer);*/
-			
+		
 			mekanismShieldRecipe(ModItems.BASIC_MEKANISTS_TOWER_SHIELD.get(), ModItems.WOODEN_TOWER_SHIELD.get(), infusedAlloy, enrichedDiamond, basicControlCircuit, energyTablet, steelIngot, consumer);			
 			mekanismShieldUpgradeRecipe(ModItems.ADVANCED_MEKANISTS_TOWER_SHIELD.get(), ModItems.BASIC_MEKANISTS_TOWER_SHIELD.get(), reinforcedAlloy, advancedControlCircuit, energyTablet, steelIngot, "has_basic_mekanists_shield", consumer);
 			mekanismShieldUpgradeRecipe(ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get(), ModItems.ADVANCED_MEKANISTS_TOWER_SHIELD.get(), atomicAlloy, eliteControlCircuit, energyTablet, steelIngot, "has_advanced_mekanists_shield", consumer);
 			mekanismShieldUpgradeRecipe(ModItems.ULTIMATE_MEKANISTS_TOWER_SHIELD.get(), ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get(), atomicAlloy, ultimateControlCircuit, energyTablet, steelIngot, "has_elite_mekanists_shield", consumer);
-/*			ConditionalShapedRecipeBuilder.shaped(ModItems.BASIC_MEKANISTS_TOWER_SHIELD.get()).
-				define('a', infusedAlloy).define('d', enrichedDiamond).define('c', basicControlCircuit).
-				define('b', energyTablet).define('#', steelIngot).define('O', ModItems.WOODEN_TOWER_SHIELD.get()).
-				pattern("ada").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_energy_tablet", hasItem(energyTablet)).
-				save(consumer);
-			ConditionalShapedRecipeBuilder.shapedCustom(ModRecipes.POWERED_SHIELD_UPGRADE.get(), ModItems.ADVANCED_MEKANISTS_TOWER_SHIELD.get()).
-				define('a', reinforcedAlloy).define('c', advancedControlCircuit).
-				define('O', ModItems.BASIC_MEKANISTS_TOWER_SHIELD.get()).define('b', energyTablet).define('#', steelIngot).
-				pattern("a a").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_basic_mekanists_shield", hasItem(ModItems.BASIC_MEKANISTS_TOWER_SHIELD.get())).
-				save(consumer);
-			ConditionalShapedRecipeBuilder.shapedCustom(ModRecipes.POWERED_SHIELD_UPGRADE.get(), ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get()).
-				define('a', atomicAlloy).define('c', eliteControlCircuit).
-				define('O', ModItems.ADVANCED_MEKANISTS_TOWER_SHIELD.get()).define('b', energyTablet).define('#', steelIngot).
-				pattern("a a").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_advanced_mekanists_shield", hasItem(ModItems.ADVANCED_MEKANISTS_TOWER_SHIELD.get())).
-				save(consumer);
-			ConditionalShapedRecipeBuilder.shapedCustom(ModRecipes.POWERED_SHIELD_UPGRADE.get(), ModItems.ULTIMATE_MEKANISTS_TOWER_SHIELD.get()).
-				define('a', atomicAlloy).define('c', ultimateControlCircuit).
-				define('O', ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get()).define('b', energyTablet).define('#', steelIngot).
-				pattern("a a").pattern("bOb").pattern("#c#").
-				condition(new ModLoadedCondition(Constants.Mekanism_ModID)).
-				unlockedBy("has_elite_mekanists_shield", hasItem(ModItems.ELITE_MEKANISTS_TOWER_SHIELD.get())).
-				save(consumer);*/
+
+		}
+		if(ModList.get().isLoaded(Constants.EnderIO_ModID))
+		{
+			Item octadicCapacitor = ForgeRegistries.ITEMS.getValue(new ResourceLocation("enderio:octadic_capacitor"));
+			Item darkSteelIngot = ForgeRegistries.ITEMS.getValue(new ResourceLocation("enderio:dark_steel_ingot"));
+			Item pulsatingCrystal = ForgeRegistries.ITEMS.getValue(new ResourceLocation("enderio:pulsating_crystal"));
+			Item vibrantCrystal = ForgeRegistries.ITEMS.getValue(new ResourceLocation("enderio:vibrant_crystal"));
 			
+			ConditionalShapedRecipeBuilder.shaped(ModItems.DARK_STEEL_RIOT_BASIC_SHIELD.get()).define('O', ModItems.WOODEN_BASIC_SHIELD.get()).define('#', darkSteelIngot).
+				define('c', octadicCapacitor).define('p', pulsatingCrystal).define('v', vibrantCrystal).
+				pattern("#v#").pattern("cOc").pattern("#p#").condition(new ModLoadedCondition(Constants.EnderIO_ModID)).unlockedBy("has_octadic_capacitor", hasItem(octadicCapacitor)).save(consumer);
+			ConditionalShapedRecipeBuilder.shaped(ModItems.DARK_STEEL_RIOT_TOWER_SHIELD.get()).define('O', ModItems.WOODEN_TOWER_SHIELD.get()).define('#', darkSteelIngot).
+			define('c', octadicCapacitor).define('p', pulsatingCrystal).define('v', vibrantCrystal).
+			pattern("#v#").pattern("cOc").pattern("#p#").condition(new ModLoadedCondition(Constants.EnderIO_ModID)).unlockedBy("has_octadic_capacitor", hasItem(octadicCapacitor)).save(consumer);
 		}
 
 		conditionalUpgradeRecipe(ModItems.SIGNALUM_BASIC_SHIELD.get(), ModItems.WOODEN_BASIC_SHIELD.get(), signalumIngot, "signalum_shields", "has_signalum_ingot", TypeDisabledCondition.SIGNALUM, true, consumer);
@@ -246,17 +205,17 @@ public class ModRecipeProvider extends RecipeProvider
 	
 	private void basicUpgradeRecipe(ItemLike result, ItemLike baseShield, TagKey<Item> material, String group, String unlockName, Consumer<FinishedRecipe> consumer)
 	{
-		ShapedRecipeBuilder.shaped(result).define('O', baseShield).define('#', material).pattern(" # ").pattern("#O#").pattern(" # ").group(ModSpartanShields.ID + ":" + group).unlockedBy(unlockName, hasItem(material)).save(consumer);
+		ConditionalShapedRecipeBuilder.shaped(result).define('O', baseShield).define('#', material).pattern(" # ").pattern("#O#").pattern(" # ").group(ModSpartanShields.ID + ":" + group).unlockedBy(unlockName, hasItem(material)).save(consumer);
 	}
 	
 	private void towerUpgradeRecipe(ItemLike result, ItemLike baseShield, TagKey<Item> material, String group, String unlockName, Consumer<FinishedRecipe> consumer)
 	{
-		ShapedRecipeBuilder.shaped(result).define('O', baseShield).define('#', material).pattern("###").pattern("#O#").pattern(" # ").group(ModSpartanShields.ID + ":" + group).unlockedBy(unlockName, hasItem(material)).save(consumer);
+		ConditionalShapedRecipeBuilder.shaped(result).define('O', baseShield).define('#', material).pattern("###").pattern("#O#").pattern(" # ").group(ModSpartanShields.ID + ":" + group).unlockedBy(unlockName, hasItem(material)).save(consumer);
 	}
 	
 	private void smithingRecipe(ItemLike result, ItemLike base, TagKey<Item> material, String unlockName, Consumer<FinishedRecipe> consumer)
 	{
-		UpgradeRecipeBuilder.smithing(Ingredient.of(base), Ingredient.of(material), result.asItem()).unlocks(unlockName, hasItem(material)).save(consumer, ForgeRegistries.ITEMS.getKey(result.asItem()) + "_smithing");
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(base), Ingredient.of(material), RecipeCategory.MISC, result.asItem()).unlocks(unlockName, hasItem(material)).save(consumer, ForgeRegistries.ITEMS.getKey(result.asItem()) + "_smithing");
 	}
 	
 	private void conditionalUpgradeRecipe(ItemLike result, ItemLike baseShield, TagKey<Item> material, String group, String unlockName, String disabledName, boolean isModded, Consumer<FinishedRecipe> consumer)
@@ -343,12 +302,12 @@ public class ModRecipeProvider extends RecipeProvider
 	
 	private InventoryChangeTrigger.TriggerInstance makeInventoryTrigger(ItemPredicate... predicates)
 	{
-		return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, predicates);		
+		return new InventoryChangeTrigger.TriggerInstance(ContextAwarePredicate.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, predicates);		
 	}
 	
-	@Override
+/*	@Override
 	public String getName()
 	{
 		return ModSpartanShields.NAME + " Recipes";
-	}
+	}*/
 }

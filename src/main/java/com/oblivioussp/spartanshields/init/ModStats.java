@@ -3,6 +3,7 @@ package com.oblivioussp.spartanshields.init;
 import com.oblivioussp.spartanshields.ModSpartanShields;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatFormatter;
 import net.minecraft.stats.Stats;
@@ -19,7 +20,7 @@ public class ModStats
 	private static void registerStat(ResourceLocation statNameIn, StatFormatter formatterIn)
 	{
 		String name = statNameIn.toString();
-		Registry.register(Registry.CUSTOM_STAT, name, statNameIn);
+		Registry.register(BuiltInRegistries.CUSTOM_STAT, name, statNameIn);
 		Stats.CUSTOM.get(statNameIn);
 	}
 }

@@ -1,5 +1,6 @@
 package com.oblivioussp.spartanshields.client;
 
+import com.oblivioussp.spartanshields.client.model.DarkSteelTowerShieldModel;
 import com.oblivioussp.spartanshields.client.model.ElementiumTowerShieldModel;
 import com.oblivioussp.spartanshields.client.model.EnderiumShieldModel;
 import com.oblivioussp.spartanshields.client.model.KiteShieldModel;
@@ -27,42 +28,9 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-//@OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientHelper 
 {
-/*	public static void registerItemColors()
-	{
-		Minecraft.getInstance().getItemColors().register(new ItemColor() {
-			@Override
-			public int getColor(ItemStack stack, int layer) 
-			{
-				return layer == 1 ? 0x78F083 : 0xFFFFFF;
-			}
-		}, ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get());
-		Minecraft.getInstance().getItemColors().register(new ItemColor() {
-			@Override
-			public int getColor(ItemStack stack, int layer) 
-			{
-				return layer == 1 ? 0xF07883 : 0xFFFFFF;
-			}
-		}, ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get());
-		Minecraft.getInstance().getItemColors().register(new ItemColor() {
-			@Override
-			public int getColor(ItemStack stack, int layer) 
-			{
-				return layer == 1 ? 0x7883F0 : 0xFFFFFF;
-			}
-		}, ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get());
-		Minecraft.getInstance().getItemColors().register(new ItemColor() {
-			@Override
-			public int getColor(ItemStack stack, int layer) 
-			{
-				return layer == 1 ? 0xF083F0 : 0xFFFFFF;
-			}
-		}, ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get());
-	}*/
-	
 	public static void registerShieldPropertyOverrides(ShieldBaseItem item)
 	{
 		ItemProperties.register(item, new ResourceLocation("blocking"), (stack, world, living, value) ->
@@ -112,12 +80,14 @@ public class ClientHelper
 				return layer == 1 ? 0xF083F0 : 0xFFFFFF;
 			}
 		}, ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get());
+		ev.register(new ItemColor() {
+			@Override
+			public int getColor(ItemStack stack, int layer) 
+			{
+				return layer == 1 ? 0x80FFA0 : 0xFFFFFF;
+			}
+		}, ModItems.DARK_STEEL_RIOT_BASIC_SHIELD.get());
 	}
-	
-	/*@SubscribeEvent
-	public static void registerRenderers(EntityRenderersEvent.RegisterRenderers ev)
-	{
-	}*/
 	
 	@SubscribeEvent
 	public static void registerModelLayers(EntityRenderersEvent.RegisterLayerDefinitions ev)
@@ -132,6 +102,7 @@ public class ClientHelper
 		ev.registerLayerDefinition(ModelLayers.TERRASTEEL_SHIELD, TerrasteelTowerShieldModel::createLayer);
 		ev.registerLayerDefinition(ModelLayers.ELEMENTIUM_SHIELD, ElementiumTowerShieldModel::createLayer);
 		ev.registerLayerDefinition(ModelLayers.MEKANISM_SHIELD, MekanismTowerShieldModel::createLayer);
+		ev.registerLayerDefinition(ModelLayers.DARK_STEEL_SHIELD, DarkSteelTowerShieldModel::createLayer);
 		Log.info("Model Layer registration complete!");
 	}
 	

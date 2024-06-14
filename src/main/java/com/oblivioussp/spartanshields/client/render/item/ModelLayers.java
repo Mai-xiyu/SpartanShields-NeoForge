@@ -16,6 +16,7 @@ public class ModelLayers
 	public static final ModelLayerLocation TERRASTEEL_SHIELD = createMainModelLayer("terrasteel_shield");
 	public static final ModelLayerLocation ELEMENTIUM_SHIELD = createMainModelLayer("elementium_shield");
 	public static final ModelLayerLocation MEKANISM_SHIELD = createMainModelLayer("mekanism_shield");
+	public static final ModelLayerLocation DARK_STEEL_SHIELD = createMainModelLayer("dark_steel_shield");
 	
 	public static ModelLayerLocation createMainModelLayer(String location)
 	{
