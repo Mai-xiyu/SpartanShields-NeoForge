@@ -3,10 +3,7 @@ package com.oblivioussp.spartanshields.client.render.item;
 import com.oblivioussp.spartanshields.ModSpartanShields;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class TextureStitcher 
 {
 	public static final TowerShieldRenderInfo RENDER_INFO_WOODEN_TOWER_SHIELD = new TowerShieldRenderInfo(new ResourceLocation(ModSpartanShields.ID, "entity/wooden_tower_shield_nopattern"),
