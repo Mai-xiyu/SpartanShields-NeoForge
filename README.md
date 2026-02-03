@@ -60,7 +60,7 @@ This mod adds a variety of shields with unique abilities and effects, including 
 ### 必需
 - **Minecraft**: 1.21.1
 - **NeoForge**: 21.1.x
-- **Spartan Weaponry**: 1.21.1 版本（必须同时安装）
+- **Spartan Weaponry Unofficial** (`spartanweaponryunofficial`): 1.21.1 版本（必须同时安装非官方移植版）
 
 ### 可选（提供额外内容）
 - **Botania**: 魔力盾牌
@@ -74,9 +74,11 @@ This mod adds a variety of shields with unique abilities and effects, including 
 ## 安装方法
 
 1. 确保已安装 **Minecraft 1.21.1** 和 **NeoForge 21.1.x**
-2. 下载 **Spartan Weaponry 1.21.1** 和 **Spartan Shields 1.21.1**
+2. 下载 **Spartan Weaponry Unofficial 1.21.1** (`spartanweaponryunofficial`) 和 **Spartan Shields 1.21.1**
 3. 将两个 `.jar` 文件放入 `mods` 文件夹
 4. 启动游戏
+
+**重要提示**: 本模组需要与 Spartan Weaponry 的**非官方移植版**配合使用，Mod ID 为 `spartanweaponryunofficial`，不兼容原版 Spartan Weaponry。
 
 ---
 
@@ -116,6 +118,7 @@ Modrinth -> https://modrinth.com/mod/spartan-shields
 ## 鸣谢
 
 - **ObliviousSp** - 原作者，创造了这个精彩的模组
+- **Claude AI** - 协助完成 1.21.1 NeoForge 迁移工作
 - Spartan Weaponry 和 Minecraft 模组社区的所有贡献者
 
 ---
