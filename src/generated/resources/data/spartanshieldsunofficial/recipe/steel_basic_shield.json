@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartanshieldsunofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "steel"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/steel"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartanshieldsunofficial:steel_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/steel"
+    },
+    "O": {
+      "item": "spartanshieldsunofficial:wooden_basic_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartanshieldsunofficial:steel_basic_shield"
+  }
+}

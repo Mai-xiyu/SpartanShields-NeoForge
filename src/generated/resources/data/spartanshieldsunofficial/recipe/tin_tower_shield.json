@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartanshieldsunofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "tin"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/tin"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartanshieldsunofficial:tin_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/tin"
+    },
+    "O": {
+      "item": "spartanshieldsunofficial:wooden_tower_shield"
+    }
+  },
+  "pattern": [
+    "###",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartanshieldsunofficial:tin_tower_shield"
+  }
+}

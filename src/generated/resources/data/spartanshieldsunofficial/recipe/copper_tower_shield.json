@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartanshieldsunofficial:copper_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/copper"
+    },
+    "O": {
+      "item": "spartanshieldsunofficial:wooden_tower_shield"
+    }
+  },
+  "pattern": [
+    "###",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartanshieldsunofficial:copper_tower_shield"
+  }
+}

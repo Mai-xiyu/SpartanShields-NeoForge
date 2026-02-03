@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartanshieldsunofficial:stone_shields",
+  "key": {
+    "#": {
+      "tag": "c:cobblestones"
+    },
+    "O": {
+      "item": "spartanshieldsunofficial:wooden_tower_shield"
+    }
+  },
+  "pattern": [
+    "###",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartanshieldsunofficial:stone_tower_shield"
+  }
+}

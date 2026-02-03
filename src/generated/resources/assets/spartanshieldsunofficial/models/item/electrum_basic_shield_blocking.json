@@ -1,0 +1,6 @@
+{
+  "parent": "spartanshieldsunofficial:item/basic_shield_base_blocking",
+  "textures": {
+    "layer0": "spartanshieldsunofficial:item/electrum_basic_shield"
+  }
+}
