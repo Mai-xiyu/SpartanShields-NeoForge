@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartanshieldsunofficial:iron_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/iron"
+    },
+    "O": {
+      "item": "spartanshieldsunofficial:wooden_basic_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartanshieldsunofficial:iron_basic_shield"
+  }
+}

@@ -1,0 +1,58 @@
+package org.xiyu.spartanshieldsunofficial.util;
+
+import org.xiyu.spartanshieldsunofficial.item.IItemPoweredFE;
+
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+
+/**
+ * Wrapper class that provides IEnergyStorage for items implementing IItemPoweredFE.
+ * In NeoForge 1.21+, capabilities are registered via RegisterCapabilitiesEvent instead of ICapabilityProvider.
+ */
+public class EnergyCapabilityProviderItem implements IEnergyStorage
+{
+	private final ItemStack stack;
+	private final IItemPoweredFE item;
+	
+	public EnergyCapabilityProviderItem(ItemStack stack, IItemPoweredFE item)
+	{
+		this.stack = stack;
+		this.item = item;
+	}
+	
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate)
+	{
+		return item.receiveFE(stack, maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) 
+	{
+		return item.extractFE(stack, maxExtract, simulate);
+	}
+
+	@Override
+	public int getEnergyStored() 
+	{
+		return item.getFEStored(stack);
+	}
+
+	@Override
+	public int getMaxEnergyStored()
+	{
+		return item.getFECapacity(stack);
+	}
+
+	@Override
+	public boolean canExtract() 
+	{
+		return item.canExtractFE(stack);
+	}
+
+	@Override
+	public boolean canReceive() 
+	{
+		return item.canReceiveFE(stack);
+	}
+}

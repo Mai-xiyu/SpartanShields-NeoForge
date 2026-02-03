@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartanshieldsunofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "lead"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/lead"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartanshieldsunofficial:lead_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/lead"
+    },
+    "O": {
+      "item": "spartanshieldsunofficial:wooden_tower_shield"
+    }
+  },
+  "pattern": [
+    "###",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartanshieldsunofficial:lead_tower_shield"
+  }
+}
