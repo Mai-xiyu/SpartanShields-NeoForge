@@ -19,7 +19,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod(ModSpartanShields.ID)
 public class ModSpartanShields
 {
-    public static final String ID = "spartanshieldsunofficial";
+    public static final String ID = "spartan_shields_unofficial";
     public static final String NAME = "Spartan Shields Unofficial";
     
     public ModSpartanShields(IEventBus modBus, ModContainer modContainer)
