@@ -59,35 +59,35 @@ public class ClientHelper
 			@Override
 			public int getColor(ItemStack stack, int layer) 
 			{
-				return layer == 1 ? 0x78F083 : 0xFFFFFF;
+				return layer == 1 ? 0xFF78F083 : 0xFFFFFFFF;
 			}
 		}, ModItems.BASIC_MEKANISTS_BASIC_SHIELD.get());
 		ev.register(new ItemColor() {
 			@Override
 			public int getColor(ItemStack stack, int layer) 
 			{
-				return layer == 1 ? 0xF07883 : 0xFFFFFF;
+				return layer == 1 ? 0xFFF07883 : 0xFFFFFFFF;
 			}
 		}, ModItems.ADVANCED_MEKANISTS_BASIC_SHIELD.get());
 		ev.register(new ItemColor() {
 			@Override
 			public int getColor(ItemStack stack, int layer) 
 			{
-				return layer == 1 ? 0x7883F0 : 0xFFFFFF;
+				return layer == 1 ? 0xFF7883F0 : 0xFFFFFFFF;
 			}
 		}, ModItems.ELITE_MEKANISTS_BASIC_SHIELD.get());
 		ev.register(new ItemColor() {
 			@Override
 			public int getColor(ItemStack stack, int layer) 
 			{
-				return layer == 1 ? 0xF083F0 : 0xFFFFFF;
+				return layer == 1 ? 0xFFF083F0 : 0xFFFFFFFF;
 			}
 		}, ModItems.ULTIMATE_MEKANISTS_BASIC_SHIELD.get());
 		ev.register(new ItemColor() {
 			@Override
 			public int getColor(ItemStack stack, int layer) 
 			{
-				return layer == 1 ? 0x80FFA0 : 0xFFFFFF;
+				return layer == 1 ? 0xFF80FFA0 : 0xFFFFFFFF;
 			}
 		}, ModItems.DARK_STEEL_RIOT_BASIC_SHIELD.get());
 	}
