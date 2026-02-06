@@ -27,7 +27,7 @@ This mod adds a variety of shields with unique abilities and effects, including 
 - 修复各种兼容性问题
 
 ### 已知问题
-- ~~某些 FE 供能的 Basic Shield（如 Dark Steel、Mekanism 系列）在物品栏中显示为透明~~ *(正在调查中)*
+- ~~某些 FE 供能的 Basic Shield（如 Dark Steel、Mekanism 系列）在物品栏中显示为透明~~ *(已修复：ItemColor 返回值缺少 Alpha 通道)*
 
 ---
 
