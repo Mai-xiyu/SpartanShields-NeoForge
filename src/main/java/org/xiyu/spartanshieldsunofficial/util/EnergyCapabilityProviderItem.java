@@ -9,6 +9,11 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
  * Wrapper class that provides IEnergyStorage for items implementing IItemPoweredFE.
  * In NeoForge 1.21+, capabilities are registered via RegisterCapabilitiesEvent instead of ICapabilityProvider.
  */
+/**
+ * @deprecated 已被 {@link EnergyCapabilityAdapter} 取代。
+ * 保留仅为了向后兼容现有 ModItems 中的物品注册。
+ */
+@Deprecated(forRemoval = true)
 public class EnergyCapabilityProviderItem implements IEnergyStorage {
     private final ItemStack stack;
     private final IItemPoweredFE item;

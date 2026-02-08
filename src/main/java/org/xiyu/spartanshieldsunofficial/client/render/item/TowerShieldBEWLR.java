@@ -1,5 +1,6 @@
 package org.xiyu.spartanshieldsunofficial.client.render.item;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
@@ -7,6 +8,7 @@ import com.google.common.collect.ImmutableMap.Builder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
+import org.xiyu.spartanshieldsunofficial.api.client.ITowerShieldRenderer;
 import org.xiyu.spartanshieldsunofficial.client.model.DarkSteelTowerShieldModel;
 import org.xiyu.spartanshieldsunofficial.client.model.ElementiumTowerShieldModel;
 import org.xiyu.spartanshieldsunofficial.client.model.EnderiumShieldModel;
@@ -49,6 +51,11 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
     private ShieldBaseModel darkSteelShield;
     private Map<Item, ShieldBaseModel> modelMap;
     private final Map<Item, TowerShieldRenderInfo> renderInfoMap;
+
+    // API 注册的渲染器
+    private final Map<Item, ITowerShieldRenderer> apiRenderers = new HashMap<>();
+    private final Map<Item, ShieldBaseModel> apiModelMap = new HashMap<>();
+    private final Map<Item, TowerShieldRenderInfo> apiRenderInfoMap = new HashMap<>();
 
     private TowerShieldBEWLR() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -147,12 +154,38 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
         modelMapBuilder.put(ModItems.DARK_STEEL_RIOT_TOWER_SHIELD.get(), this.darkSteelShield);
 
         this.modelMap = modelMapBuilder.build();
+
+        // Reload API-registered renderers
+        this.apiModelMap.clear();
+        this.apiRenderInfoMap.clear();
+        for (Map.Entry<Item, ITowerShieldRenderer> entry : this.apiRenderers.entrySet()) {
+            ITowerShieldRenderer renderer = entry.getValue();
+            net.minecraft.client.model.geom.builders.LayerDefinition layerDef = renderer.createLayerDefinition();
+            net.minecraft.client.model.geom.ModelPart bakedRoot = layerDef.bakeRoot();
+            ShieldBaseModel model = renderer.createModel(bakedRoot);
+            this.apiModelMap.put(entry.getKey(), model);
+
+            TowerShieldRenderInfo renderInfo = new TowerShieldRenderInfo(
+                renderer.getTextureNoPattern(), renderer.getTexturePattern()
+            ) {
+                @Override public boolean hasLayers() { return renderer.hasExtraLayers(); }
+                @Override public net.minecraft.client.renderer.RenderType getLayerRenderType(ItemStack stack) { return renderer.getExtraLayerRenderType(stack); }
+                @Override public float getColourRed() { return renderer.tintRed(); }
+                @Override public float getColourGreen() { return renderer.tintGreen(); }
+                @Override public float getColourBlue() { return renderer.tintBlue(); }
+            };
+            this.apiRenderInfoMap.put(entry.getKey(), renderInfo);
+        }
     }
 
     @Override
     public void renderByItem(ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack mStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        // 优先查找内置 Map，再查 API Map
         ShieldBaseModel model = this.modelMap.get(stack.getItem());
         TowerShieldRenderInfo renderInfo = this.renderInfoMap.get(stack.getItem());
+        if (model == null) model = this.apiModelMap.get(stack.getItem());
+        if (renderInfo == null) renderInfo = this.apiRenderInfoMap.get(stack.getItem());
+
         if (model != null && renderInfo != null) {
             BannerPatternLayers bannerPatterns = stack.get(DataComponents.BANNER_PATTERNS);
             DyeColor baseColor = stack.getOrDefault(DataComponents.BASE_COLOR, DyeColor.WHITE);
@@ -175,5 +208,16 @@ public class TowerShieldBEWLR extends BlockEntityWithoutLevelRenderer implements
 
             mStack.popPose();
         }
+    }
+
+    /**
+     * 注册 API 塔盾渲染器。
+     * 由 {@code SpartanShieldsAPI.registerTowerShieldRenderer()} 委托调用。
+     *
+     * @param shield   塔盾物品实例
+     * @param renderer 渲染器实现
+     */
+    public void registerRenderer(Item shield, ITowerShieldRenderer renderer) {
+        this.apiRenderers.put(shield, renderer);
     }
 }

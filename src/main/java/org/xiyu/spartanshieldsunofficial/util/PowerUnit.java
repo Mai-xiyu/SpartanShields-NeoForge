@@ -1,5 +1,10 @@
 package org.xiyu.spartanshieldsunofficial.util;
 
+/**
+ * @deprecated 已被 {@link org.xiyu.spartanshieldsunofficial.api.resource.ResourceRegistry} 中的预置资源类型取代。
+ * 请使用 {@code ResourceRegistry.ENERGY} 或 {@code ResourceRegistry.MICRO_INFINITY}。
+ */
+@Deprecated(forRemoval = true)
 public enum PowerUnit {
     RedstoneFlux("rf_capacity", "rf_per_damage", "rf_charge_rate", 1.0f),
     ForgeEnergy("fe_capacity", "fe_per_damage", "fe_charge_rate", 1.0f),

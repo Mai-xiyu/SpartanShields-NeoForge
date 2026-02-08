@@ -1,6 +1,7 @@
 package org.xiyu.spartanshieldsunofficial.util;
 
 import org.jetbrains.annotations.NotNull;
+import org.xiyu.spartanshieldsunofficial.api.shield.IShieldMaterial;
 import org.xiyu.spartanshieldsunofficial.tags.ModItemTags;
 
 import net.minecraft.tags.BlockTags;
@@ -79,6 +80,16 @@ public class TierSS implements Tier {
 
     public TierSS(Tier tier, TagKey<Item> repairMaterialTag) {
         this(tier.getUses(), tier.getSpeed(), tier.getAttackDamageBonus(), tier.getEnchantmentValue(), repairMaterialTag);
+    }
+
+    /**
+     * 从 API 的 {@link IShieldMaterial} 创建 TierSS 实例。
+     *
+     * @param material API 材质定义
+     * @return 对应的 TierSS 实例
+     */
+    public static TierSS fromMaterial(IShieldMaterial material) {
+        return new TierSS(material.getDurability(), 0.0f, 0.0f, material.getEnchantability(), material.getRepairTag());
     }
 
     @Override

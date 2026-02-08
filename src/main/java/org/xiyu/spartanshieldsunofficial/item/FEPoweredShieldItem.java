@@ -6,6 +6,9 @@ import com.ibm.icu.number.LocalizedNumberFormatter;
 import com.ibm.icu.number.NumberFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.xiyu.spartanshieldsunofficial.ModSpartanShields;
+import org.xiyu.spartanshieldsunofficial.api.resource.IResourceStorage;
+import org.xiyu.spartanshieldsunofficial.api.resource.IResourceType;
+import org.xiyu.spartanshieldsunofficial.api.resource.ResourceRegistry;
 import org.xiyu.spartanshieldsunofficial.client.ClientHelper;
 import org.xiyu.spartanshieldsunofficial.config.Config;
 import org.xiyu.spartanshieldsunofficial.init.ModDataComponents;
@@ -30,11 +33,12 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
 
-public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield, IItemPoweredFE {
+public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield, IItemPoweredFE, IResourceStorage {
     protected int energyCapacity;
     protected int maxEnergyReceive;
     protected String modName;
     protected PowerUnit preferredEnergyUnit;
+    protected IResourceType resourceType;
 
     public FEPoweredShieldItem(int capacity, int maxReceive, String modName, PowerUnit preferredUnit, boolean isTowerShieldIn, Item.Properties prop) {
         super(0, isTowerShieldIn, prop);
@@ -42,6 +46,10 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
         this.maxEnergyReceive = maxReceive;
         this.modName = modName;
         this.preferredEnergyUnit = preferredUnit;
+        // 根据 PowerUnit 确定对应的 IResourceType
+        this.resourceType = (preferredUnit == PowerUnit.MicroInfinity)
+            ? ResourceRegistry.MICRO_INFINITY
+            : ResourceRegistry.ENERGY;
 
         if (FMLEnvironment.dist.isClient())
             ClientHelper.registerPoweredShieldPropertyOverrides(this);
@@ -203,5 +211,32 @@ public class FEPoweredShieldItem extends ShieldBaseItem implements IDamageShield
     @Override
     public boolean canReceiveFE(ItemStack stack) {
         return true;
+    }
+
+    // ===== IResourceStorage =====
+
+    @Override
+    public IResourceType getResourceType() {
+        return this.resourceType;
+    }
+
+    @Override
+    public int getCapacity() {
+        return this.energyCapacity;
+    }
+
+    @Override
+    public int getMaxReceive() {
+        return this.maxEnergyReceive;
+    }
+
+    @Override
+    public int receive(ItemStack stack, int maxAmount, boolean simulate) {
+        return this.receiveFE(stack, maxAmount, simulate);
+    }
+
+    @Override
+    public int extract(ItemStack stack, int maxAmount, boolean simulate) {
+        return this.extractFE(stack, maxAmount, simulate);
     }
 }

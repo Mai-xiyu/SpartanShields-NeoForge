@@ -35,10 +35,14 @@ public class ClientHelper {
                 living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0f : 0.0f);
     }
 
-    public static void registerPoweredShieldPropertyOverrides(FEPoweredShieldItem item) {
+    public static void registerPoweredShieldPropertyOverrides(ShieldBaseItem item) {
         registerShieldPropertyOverrides(item);
         ItemProperties.register(item, ResourceLocation.parse("disabled"), (stack, world, living, value) ->
         {
+            // 通用检测：先检查 IResourceStorage 接口，再回退到 STORED_ENERGY
+            if (stack.getItem() instanceof org.xiyu.spartanshieldsunofficial.api.resource.IResourceStorage storage) {
+                return storage.getResourceType().getStored(stack) <= 0 ? 1.0f : 0.0f;
+            }
             boolean disabled = stack.getOrDefault(ModDataComponents.STORED_ENERGY.get(), 0) <= 0;
             return disabled ? 1.0f : 0.0f;
         });
