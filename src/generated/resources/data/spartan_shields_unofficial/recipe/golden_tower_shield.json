@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:gold_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/gold"
+    },
+    "O": {
+      "item": "spartan_shields_unofficial:wooden_tower_shield"
+    }
+  },
+  "pattern": [
+    "###",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:golden_tower_shield"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "description": {
+    "translate": "enchantment.spartan_shields_unofficial.payback"
+  },
+  "supported_items": "#spartan_shields_unofficial:shields_with_bash",
+  "weight": 2,
+  "max_level": 5,
+  "min_cost": {
+    "base": 12,
+    "per_level_above_first": 8
+  },
+  "max_cost": {
+    "base": 52,
+    "per_level_above_first": 8
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "effects": {}
+}

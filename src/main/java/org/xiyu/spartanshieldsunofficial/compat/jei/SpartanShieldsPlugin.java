@@ -1,5 +1,6 @@
 package org.xiyu.spartanshieldsunofficial.compat.jei;
 
+import org.jetbrains.annotations.NotNull;
 import org.xiyu.spartanshieldsunofficial.ModSpartanShields;
 
 import mezz.jei.api.IModPlugin;
@@ -11,29 +12,25 @@ import net.minecraft.resources.ResourceLocation;
 
 // TODO: Fix JEI Plugin (or remove it if necessary)
 @JeiPlugin
-public class SpartanShieldsPlugin implements IModPlugin
-{
-	private final ResourceLocation PLUGIN_UID = ResourceLocation.fromNamespaceAndPath(ModSpartanShields.ID, "jei_plugin");
-	
+public class SpartanShieldsPlugin implements IModPlugin {
+    private final ResourceLocation PLUGIN_UID = ResourceLocation.fromNamespaceAndPath(ModSpartanShields.ID, "jei_plugin");
+
 //	public static final ResourceLocation SHIELD_BANNER_UID = new ResourceLocation(ModSpartanShields.ID, "shield_banner");
 //	public static ShieldBannerRecipeCategory shieldBannerRecipeCategory;
-	
-	@Override
-	public ResourceLocation getPluginUid()
-	{
-		return PLUGIN_UID;
-	}
-	
-	@Override
-	public void registerCategories(IRecipeCategoryRegistration reg) 
-	{
+
+    @Override
+    public @NotNull ResourceLocation getPluginUid() {
+        return this.PLUGIN_UID;
+    }
+
+    @Override
+    public void registerCategories(@NotNull IRecipeCategoryRegistration reg) {
 /*		shieldBannerRecipeCategory = new ShieldBannerRecipeCategory(reg.getJeiHelpers().getGuiHelper());
 		reg.addRecipeCategories(shieldBannerRecipeCategory);*/
-	}
+    }
 
-	@Override
-	public void registerRecipes(IRecipeRegistration reg)
-	{
+    @Override
+    public void registerRecipes(@NotNull IRecipeRegistration reg) {
 /*		Minecraft mc = Minecraft.getInstance();
 		RecipeManager recipeManager = mc.level != null ? Minecraft.getInstance().level.getRecipeManager() : null;
 		if(recipeManager == null)
@@ -48,12 +45,11 @@ public class SpartanShieldsPlugin implements IModPlugin
 		
 //		reg.addRecipes(recipesToAdd, SHIELD_BANNER_UID);
 		reg.addRecipes(ShieldBannerRecipeCategory.RECIPE_TYPE, recipesToAdd);*/
-	}
-	
-	@Override
-	public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) 
-	{
+    }
+
+    @Override
+    public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration reg) {
 //		reg.addRecipeCatalyst(new ItemStack(Blocks.CRAFTING_TABLE), ShieldBannerRecipeCategory.RECIPE_TYPE);
-	}
-	
+    }
+
 }

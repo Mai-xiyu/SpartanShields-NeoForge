@@ -12,17 +12,15 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 @EventBusSubscriber(modid = org.xiyu.spartanshieldsunofficial.ModSpartanShields.ID, bus = EventBusSubscriber.Bus.MOD)
-public class DataGenEventHandler 
-{
+public class DataGenEventHandler {
 
-	@SubscribeEvent
-	public static void onDataGather(GatherDataEvent ev)
-	{
-		DataGenerator gen = ev.getGenerator();
-		PackOutput output = gen.getPackOutput();
-		gen.addProvider(ev.includeServer(), new ModItemTagsProvider(output, ev.getLookupProvider(), ev.getExistingFileHelper()));
-		gen.addProvider(ev.includeServer(), new ModRecipeProvider(output, ev.getLookupProvider()));
-		gen.addProvider(true, new ModItemModelProvider(output, ev.getExistingFileHelper()));
-		gen.addProvider(true, new ModSoundDefinitionsProvider(output, ev.getExistingFileHelper()));
-	}
+    @SubscribeEvent
+    public static void onDataGather(GatherDataEvent ev) {
+        DataGenerator gen = ev.getGenerator();
+        PackOutput output = gen.getPackOutput();
+        gen.addProvider(ev.includeServer(), new ModItemTagsProvider(output, ev.getLookupProvider(), ev.getExistingFileHelper()));
+        gen.addProvider(ev.includeServer(), new ModRecipeProvider(output, ev.getLookupProvider()));
+        gen.addProvider(true, new ModItemModelProvider(output, ev.getExistingFileHelper()));
+        gen.addProvider(true, new ModSoundDefinitionsProvider(output, ev.getExistingFileHelper()));
+    }
 }
