@@ -3,8 +3,7 @@ package org.xiyu.spartanshieldsunofficial.item;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
+import org.jetbrains.annotations.NotNull;
 import org.xiyu.spartanshieldsunofficial.ModSpartanShields;
 import org.xiyu.spartanshieldsunofficial.client.ClientHelper;
 import org.xiyu.spartanshieldsunofficial.config.Config;
@@ -22,52 +21,45 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.minecraft.core.registries.BuiltInRegistries;
 
-public class BasicShieldItem extends ShieldBaseItem
-{
-	protected final TierSS material;	// The base material used for this shield
-	
-	protected boolean doCraftCheck = true;
-	protected boolean canBeCrafted = true;
+public class BasicShieldItem extends ShieldBaseItem {
+    protected final TierSS material;    // The base material used for this shield
 
-	public BasicShieldItem(TierSS toolMaterial, int defaultMaxDamage, boolean isTowerShieldIn, Item.Properties prop)
-	{
-		super(defaultMaxDamage, isTowerShieldIn, prop);
-		material = toolMaterial;
-		
-		if(FMLEnvironment.dist.isClient())
-			ClientHelper.registerShieldPropertyOverrides(this);
-	}
-	
-	public BasicShieldItem(TierSS toolMaterial, int defaultMaxDamage, Item.Properties prop)
-	{
-		this(toolMaterial, defaultMaxDamage, false, prop);
-	}
-	
-	/**
+    protected boolean doCraftCheck = true;
+    protected boolean canBeCrafted = true;
+
+    public BasicShieldItem(TierSS toolMaterial, int defaultMaxDamage, boolean isTowerShieldIn, Item.Properties prop) {
+        super(defaultMaxDamage, isTowerShieldIn, prop);
+        this.material = toolMaterial;
+
+        if (FMLEnvironment.dist.isClient())
+            ClientHelper.registerShieldPropertyOverrides(this);
+    }
+
+    public BasicShieldItem(TierSS toolMaterial, int defaultMaxDamage, Item.Properties prop) {
+        this(toolMaterial, defaultMaxDamage, false, prop);
+    }
+
+    /**
      * allows items to add custom lines of information to the mouseover description
      */
-	@OnlyIn(Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn)
-    {
-		tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".protection", this.getMaxDamage(stack)));
-		
-		Level levelIn = context.level();
-    	if(doCraftCheck && levelIn != null)
-    	{
-    		if(!Config.INSTANCE.forceDisableUncraftableTooltips.get())
-    		{
-				Optional<HolderSet.Named<net.minecraft.world.item.Item>> tagOpt = BuiltInRegistries.ITEM.getTag(material.getRepairTag());
-	        	if(tagOpt.isEmpty() || tagOpt.get().size() == 0)
-	    			canBeCrafted = false;
-    		}
-	    	doCraftCheck = false;
-    	}
+    public void appendHoverText(@NotNull ItemStack stack, Item.@NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
+        tooltip.add(Component.translatable("tooltip." + ModSpartanShields.ID + ".protection", this.getMaxDamage(stack)));
 
-    	if(!canBeCrafted)
-    	{
-    		tooltip.add(Component.translatable(String.format("tooltip.%s.uncraftable_missing_material", ModSpartanShields.ID), material.getRepairTagName()).withStyle(ChatFormatting.RED));
-    	}
+        Level levelIn = context.level();
+        if (this.doCraftCheck && levelIn != null) {
+            if (!Config.INSTANCE.forceDisableUncraftableTooltips.get()) {
+                Optional<HolderSet.Named<net.minecraft.world.item.Item>> tagOpt = BuiltInRegistries.ITEM.getTag(this.material.getRepairTag());
+                if (tagOpt.isEmpty() || tagOpt.get().size() == 0)
+                    this.canBeCrafted = false;
+            }
+            this.doCraftCheck = false;
+        }
+
+        if (!this.canBeCrafted) {
+            tooltip.add(Component.translatable(String.format("tooltip.%s.uncraftable_missing_material", ModSpartanShields.ID), this.material.getRepairTagName()).withStyle(ChatFormatting.RED));
+        }
     	
     	/*if(isTowerShield && !stack.isEmpty() && stack.hasTag() && stack.getTag().contains("BlockEntityTag"))
         {
@@ -79,7 +71,7 @@ public class BasicShieldItem extends ShieldBaseItem
         }
     	
     	addEffectsTooltip(stack, levelIn, tooltip, flagIn);*/
-    	super.appendHoverText(stack, context, tooltip, flagIn);
+        super.appendHoverText(stack, context, tooltip, flagIn);
 
 //    	this.addShieldBashTooltip(stack, level, tooltip, flagIn);
     }
@@ -90,7 +82,7 @@ public class BasicShieldItem extends ShieldBaseItem
 		return getOrCreateDescriptionId();
 	}*/
 
-	/**
+    /**
      * Return the enchantability factor of the item, most of the time is based on material.
      */
     /*@Override
@@ -107,16 +99,13 @@ public class BasicShieldItem extends ShieldBaseItem
     {
     	return material.getRepairMaterial().test(repair) || super.getIsRepairable(toRepair, repair);
     }*/
-	
-	@Override
-	public int getEnchantmentValue() 
-	{
-		return material.getEnchantmentValue();
-	}
-	
-	@Override
-	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) 
-	{
-		return material.getRepairIngredient().test(repair) || super.isValidRepairItem(toRepair, repair);
-	}
+    @Override
+    public int getEnchantmentValue() {
+        return this.material.getEnchantmentValue();
+    }
+
+    @Override
+    public boolean isValidRepairItem(@NotNull ItemStack toRepair, @NotNull ItemStack repair) {
+        return this.material.getRepairIngredient().test(repair) || super.isValidRepairItem(toRepair, repair);
+    }
 }

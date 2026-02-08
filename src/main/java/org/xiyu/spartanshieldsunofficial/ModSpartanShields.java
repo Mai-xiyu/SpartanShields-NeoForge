@@ -17,18 +17,16 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod(ModSpartanShields.ID)
-public class ModSpartanShields
-{
+public class ModSpartanShields {
     public static final String ID = "spartan_shields_unofficial";
     public static final String NAME = "Spartan Shields Unofficial";
-    
-    public ModSpartanShields(IEventBus modBus, ModContainer modContainer)
-    {
+
+    public ModSpartanShields(IEventBus modBus, ModContainer modContainer) {
         Log.info("Constructing Mod: " + NAME);
 
         modBus.addListener(this::onSetup);
         modBus.addListener(this::onClientSetup);
-        
+
         ModDataComponents.REGISTER.register(modBus);
         ModItems.REGISTER.register(modBus);
         ModCreativeTabs.REGISTER.register(modBus);
@@ -41,17 +39,12 @@ public class ModSpartanShields
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC);
     }
 
-    private void onSetup(FMLCommonSetupEvent ev)
-    {
+    private void onSetup(FMLCommonSetupEvent ev) {
         Log.info("Setting up " + NAME + "!");
-        ev.enqueueWork(() ->
-        {
-        	ModStats.init();
-        });
+        ev.enqueueWork(ModStats::init);
     }
 
-    private void onClientSetup(FMLClientSetupEvent ev)
-    {
+    private void onClientSetup(FMLClientSetupEvent ev) {
         Log.info("Setting up Client for " + NAME + "!");
     }
 }

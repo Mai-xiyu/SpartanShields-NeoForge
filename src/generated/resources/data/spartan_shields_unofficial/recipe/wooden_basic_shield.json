@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:wood_shields",
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "/": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#/#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:wooden_basic_shield"
+  }
+}

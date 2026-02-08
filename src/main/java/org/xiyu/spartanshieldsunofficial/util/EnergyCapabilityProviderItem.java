@@ -9,50 +9,42 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
  * Wrapper class that provides IEnergyStorage for items implementing IItemPoweredFE.
  * In NeoForge 1.21+, capabilities are registered via RegisterCapabilitiesEvent instead of ICapabilityProvider.
  */
-public class EnergyCapabilityProviderItem implements IEnergyStorage
-{
-	private final ItemStack stack;
-	private final IItemPoweredFE item;
-	
-	public EnergyCapabilityProviderItem(ItemStack stack, IItemPoweredFE item)
-	{
-		this.stack = stack;
-		this.item = item;
-	}
-	
-	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate)
-	{
-		return item.receiveFE(stack, maxReceive, simulate);
-	}
+public class EnergyCapabilityProviderItem implements IEnergyStorage {
+    private final ItemStack stack;
+    private final IItemPoweredFE item;
 
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate) 
-	{
-		return item.extractFE(stack, maxExtract, simulate);
-	}
+    public EnergyCapabilityProviderItem(ItemStack stack, IItemPoweredFE item) {
+        this.stack = stack;
+        this.item = item;
+    }
 
-	@Override
-	public int getEnergyStored() 
-	{
-		return item.getFEStored(stack);
-	}
+    @Override
+    public int receiveEnergy(int maxReceive, boolean simulate) {
+        return this.item.receiveFE(this.stack, maxReceive, simulate);
+    }
 
-	@Override
-	public int getMaxEnergyStored()
-	{
-		return item.getFECapacity(stack);
-	}
+    @Override
+    public int extractEnergy(int maxExtract, boolean simulate) {
+        return this.item.extractFE(this.stack, maxExtract, simulate);
+    }
 
-	@Override
-	public boolean canExtract() 
-	{
-		return item.canExtractFE(stack);
-	}
+    @Override
+    public int getEnergyStored() {
+        return this.item.getFEStored(this.stack);
+    }
 
-	@Override
-	public boolean canReceive() 
-	{
-		return item.canReceiveFE(stack);
-	}
+    @Override
+    public int getMaxEnergyStored() {
+        return this.item.getFECapacity(this.stack);
+    }
+
+    @Override
+    public boolean canExtract() {
+        return this.item.canExtractFE(this.stack);
+    }
+
+    @Override
+    public boolean canReceive() {
+        return this.item.canReceiveFE(this.stack);
+    }
 }

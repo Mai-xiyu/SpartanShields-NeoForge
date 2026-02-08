@@ -1,0 +1,37 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartan_shields_unofficial:type_disabled",
+      "disabled": [
+        "obsidian"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:obsidians"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:obsidian_shields",
+  "key": {
+    "#": {
+      "tag": "c:obsidians"
+    },
+    "O": {
+      "item": "spartan_shields_unofficial:wooden_basic_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:obsidian_basic_shield"
+  }
+}

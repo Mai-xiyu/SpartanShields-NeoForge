@@ -1,0 +1,7 @@
+{
+    "parent":"spartan_shields_unofficial:item/mekanists_basic_shield_base",
+    "textures": {
+        "layer0":"spartan_shields_unofficial:item/mekanism/mekanists_basic_shield_base",
+		"layer1":"spartan_shields_unofficial:item/mekanism/mekanists_basic_shield_lights_off"
+    }
+}

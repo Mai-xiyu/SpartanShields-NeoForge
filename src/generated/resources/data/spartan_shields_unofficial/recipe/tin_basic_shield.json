@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartan_shields_unofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "tin"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/tin"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:tin_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/tin"
+    },
+    "O": {
+      "item": "spartan_shields_unofficial:wooden_basic_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:tin_basic_shield"
+  }
+}

@@ -2,8 +2,7 @@ package org.xiyu.spartanshieldsunofficial.util;
 
 import java.util.UUID;
 
-public class Constants 
-{
+public class Constants {
     // External Mods
     public static final String RedstoneFlux_ModID = "redstoneflux";
     public static final String EnderIO_ModID = "enderio";
