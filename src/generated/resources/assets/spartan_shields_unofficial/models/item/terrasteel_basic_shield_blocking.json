@@ -1,0 +1,6 @@
+{
+  "parent": "spartan_shields_unofficial:item/basic_shield_base_blocking",
+  "textures": {
+    "layer0": "spartan_shields_unofficial:item/botania/terrasteel_basic_shield"
+  }
+}

@@ -1,10 +1,10 @@
 {
   "values": [
-    "spartanshieldsunofficial:manasteel_basic_shield",
-    "spartanshieldsunofficial:terrasteel_basic_shield",
-    "spartanshieldsunofficial:elementium_basic_shield",
-    "spartanshieldsunofficial:manasteel_tower_shield",
-    "spartanshieldsunofficial:terrasteel_tower_shield",
-    "spartanshieldsunofficial:elementium_tower_shield"
+    "spartan_shields_unofficial:manasteel_basic_shield",
+    "spartan_shields_unofficial:terrasteel_basic_shield",
+    "spartan_shields_unofficial:elementium_basic_shield",
+    "spartan_shields_unofficial:manasteel_tower_shield",
+    "spartan_shields_unofficial:terrasteel_tower_shield",
+    "spartan_shields_unofficial:elementium_tower_shield"
   ]
 }

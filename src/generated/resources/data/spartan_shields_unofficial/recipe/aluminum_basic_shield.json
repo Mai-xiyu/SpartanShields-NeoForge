@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartan_shields_unofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "aluminum"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/aluminum"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:aluminum_shields",
+  "key": {
+    "#": {
+      "tag": "c:ingots/aluminum"
+    },
+    "O": {
+      "item": "spartan_shields_unofficial:wooden_basic_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:aluminum_basic_shield"
+  }
+}
