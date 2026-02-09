@@ -3,6 +3,7 @@ package org.xiyu.spartanshieldsunofficial.event;
 import org.xiyu.spartanshieldsunofficial.ModSpartanShields;
 import org.xiyu.spartanshieldsunofficial.client.ModKeyBinds;
 import org.xiyu.spartanshieldsunofficial.config.Config;
+import org.xiyu.spartanshieldsunofficial.item.ShieldBaseItem;
 import org.xiyu.spartanshieldsunofficial.network.NetworkHandler;
 import org.xiyu.spartanshieldsunofficial.network.ShieldBashPacket;
 import org.xiyu.spartanshieldsunofficial.tags.ModItemTags;
@@ -35,6 +36,15 @@ import java.util.Objects;
 
 @EventBusSubscriber(modid = ModSpartanShields.ID, value = Dist.CLIENT)
 public class ClientEventHandler {
+
+    /**
+     * 判断盾牌是否允许猛击：通过 Tag 或通过 API 的 bashable 标志。
+     */
+    private static boolean isBashAllowed(ItemStack stack) {
+        return stack.is(ModItemTags.SHIELDS_WITH_BASH)
+            || (stack.getItem() instanceof ShieldBaseItem shield && shield.isBashable());
+    }
+
     @SubscribeEvent
     public static void onMouseInputEvent(InputEvent.MouseButton.Post ev) {
         checkForShieldBash();
@@ -66,7 +76,7 @@ public class ClientEventHandler {
             InteractionHand shieldHand;
             ItemStack usedItem = player.getUseItem();
             // NOTE: To prevent erroneous hand swinging, the attack keybind needs to be 'consumed' so it isn't used after this
-            if (usedItem.is(ModItemTags.SHIELDS_WITH_BASH) && usedItem.canPerformAction(ItemAbilities.SHIELD_BLOCK) &&
+            if (isBashAllowed(usedItem) && usedItem.canPerformAction(ItemAbilities.SHIELD_BLOCK) &&
                     (ModKeyBinds.KEY_ALT_SHIELD_BASH.isUnbound() ? mc.options.keyAttack.consumeClick() : ModKeyBinds.KEY_ALT_SHIELD_BASH.isDown())) {
                 shieldStack = player.getUseItem();
                 shieldHand = player.getUsedItemHand();
@@ -132,7 +142,7 @@ public class ClientEventHandler {
     public static void onTooltipEvent(ItemTooltipEvent ev) {
 //		Player player = ev.getPlayer();
         ItemStack stack = ev.getItemStack();
-        if (!stack.isEmpty() && !Config.INSTANCE.disableShieldBash.get() && stack.is(ModItemTags.SHIELDS_WITH_BASH) && stack.canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
+        if (!stack.isEmpty() && !Config.INSTANCE.disableShieldBash.get() && isBashAllowed(stack) && stack.canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
             KeyMapping boundKey = ModKeyBinds.KEY_ALT_SHIELD_BASH.isUnbound() ? Minecraft.getInstance().options.keyAttack : ModKeyBinds.KEY_ALT_SHIELD_BASH;
             ev.getToolTip().add(1, Component.translatable("tooltip." + ModSpartanShields.ID + ".shield_bash",
                     Component.translatable("tooltip." + ModSpartanShields.ID + ".shield_bash.value",

@@ -1,5 +1,7 @@
 package org.xiyu.spartanshieldsunofficial.api.resource;
 
+import java.util.function.Supplier;
+
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +26,7 @@ import org.xiyu.spartanshieldsunofficial.util.EnergyCapabilityAdapter;
  * IResourceType rf = new AbstractEnergyStorage(
  *     ResourceLocation.fromNamespaceAndPath("thermal", "redstone_flux"),
  *     Component.literal("RF"),
- *     ModDataComponents.STORED_ENERGY.get(),
+ *     ModDataComponents.STORED_ENERGY,  // DeferredHolder IS-A Supplier
  *     0xCC4C4C
  * );
  * }</pre>
@@ -34,6 +36,22 @@ public class AbstractEnergyStorage extends SimpleResourceType {
     public AbstractEnergyStorage(ResourceLocation id, Component displayName,
                                   DataComponentType<Integer> dataComponent, int barColor) {
         super(id, displayName, dataComponent, barColor);
+    }
+
+    /**
+     * 接受 {@code Supplier<DataComponentType<Integer>>} 的构造器。
+     * <p>
+     * NeoForge 的 {@code DeferredHolder} 本身实现了 {@code Supplier}，可直接传入。
+     * </p>
+     *
+     * @param id                    全局唯一 ID
+     * @param displayName           显示名
+     * @param dataComponentSupplier DataComponentType 的供应器（通常直接传入 DeferredHolder）
+     * @param barColor              耐久条颜色
+     */
+    public AbstractEnergyStorage(ResourceLocation id, Component displayName,
+                                  Supplier<DataComponentType<Integer>> dataComponentSupplier, int barColor) {
+        super(id, displayName, dataComponentSupplier, barColor);
     }
 
     /**

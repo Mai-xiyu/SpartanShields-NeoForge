@@ -11,7 +11,6 @@ import org.xiyu.spartanshieldsunofficial.api.resource.IResourceType;
 import org.xiyu.spartanshieldsunofficial.item.GeneratedBasicShieldItem;
 import org.xiyu.spartanshieldsunofficial.item.GeneratedResourceShieldItem;
 import org.xiyu.spartanshieldsunofficial.item.ShieldBaseItem;
-import org.xiyu.spartanshieldsunofficial.util.BuilderRegistry;
 
 /**
  * 盾牌建造者 — 流式创建任意类型盾牌（含安全校验）。
@@ -31,6 +30,7 @@ public class ShieldBuilder {
 
     private IShieldMaterial material;
     private ShieldType type = ShieldType.BASIC;
+    private boolean bashEnabled = true;
     private final List<BlockEffectEntry> blockEffects = new ArrayList<>();
     private final List<IShieldBlockHandler> blockHandlers = new ArrayList<>();
     private IResourceType resourceType;
@@ -60,6 +60,18 @@ public class ShieldBuilder {
     /** 设置盾牌类型，默认 BASIC */
     public ShieldBuilder type(ShieldType type) {
         this.type = type;
+        return this;
+    }
+
+    /**
+     * 设置是否启用盾牌猛击，默认为 {@code true}。
+     * <p>
+     * 启用后，通过 API 创建的盾牌无需手动添加数据包 Tag 即可获得猛击功能。
+     * 设为 {@code false} 可禁用猛击（例如纯防御型盾牌）。
+     * </p>
+     */
+    public ShieldBuilder bashable(boolean enabled) {
+        this.bashEnabled = enabled;
         return this;
     }
 
@@ -107,7 +119,7 @@ public class ShieldBuilder {
         // 第一步：安全校验
         validate();
 
-        // 第二步：记录到全局列表（供 Capability 自动注册用）
+        // 第二步：构建 Item Supplier
         if (this.resourceType != null) {
             // 使用一个临时引用来让 lambda 闭包正确捕获
             final IResourceType rt = this.resourceType;
@@ -117,18 +129,20 @@ public class ShieldBuilder {
             final List<BlockEffectEntry> effects = List.copyOf(this.blockEffects);
             final List<IShieldBlockHandler> handlers = List.copyOf(this.blockHandlers);
 
+            // Item 会在构造器中自注册到 BuilderRegistry（DeferredRegister 创建时，注册表未冻结）
+            final boolean bash = this.bashEnabled;
             Supplier<? extends ShieldBaseItem> supplier = () ->
-                new GeneratedResourceShieldItem(rt, cap, mr, st, effects, handlers);
+                new GeneratedResourceShieldItem(rt, cap, mr, st, effects, handlers, bash);
 
-            BuilderRegistry.registerPoweredShield(supplier, rt, cap, mr);
             return supplier;
         } else {
             final IShieldMaterial mat = this.material;
             final ShieldType st = this.type;
+            final boolean bash = this.bashEnabled;
             final List<BlockEffectEntry> effects = List.copyOf(this.blockEffects);
             final List<IShieldBlockHandler> handlers = List.copyOf(this.blockHandlers);
 
-            return () -> new GeneratedBasicShieldItem(mat, st, effects, handlers);
+            return () -> new GeneratedBasicShieldItem(mat, st, effects, handlers, bash);
         }
     }
 

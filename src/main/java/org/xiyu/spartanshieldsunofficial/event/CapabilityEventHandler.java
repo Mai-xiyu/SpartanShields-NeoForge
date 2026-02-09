@@ -32,8 +32,9 @@ public class CapabilityEventHandler {
         }
 
         // 2. 新 API：遍历 BuilderRegistry 中通过 ShieldBuilder.poweredBy() 创建的盾牌
+        //    Item 在被 DeferredRegister 创建时已自注册到 BuilderRegistry，这里直接使用实例
         for (BuilderRegistry.PoweredShieldEntry entry : BuilderRegistry.getRegisteredShields()) {
-            Item shield = entry.itemSupplier().get();
+            Item shield = entry.shield();
             entry.resourceType().onRegisterCapabilities(event, shield, entry.capacity(), entry.maxReceive());
         }
     }

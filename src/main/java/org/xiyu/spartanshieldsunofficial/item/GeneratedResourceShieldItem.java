@@ -12,6 +12,7 @@ import org.xiyu.spartanshieldsunofficial.api.shield.ShieldBuilder;
 import org.xiyu.spartanshieldsunofficial.api.shield.ShieldType;
 import org.xiyu.spartanshieldsunofficial.client.ClientHelper;
 import org.xiyu.spartanshieldsunofficial.config.Config;
+import org.xiyu.spartanshieldsunofficial.util.BuilderRegistry;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -52,16 +53,24 @@ public class GeneratedResourceShieldItem extends ShieldBaseItem implements IDama
     private final List<ShieldBuilder.BlockEffectEntry> blockEffects;
     private final List<IShieldBlockHandler> blockHandlers;
 
+    private final boolean bashEnabled;
+
     public GeneratedResourceShieldItem(IResourceType resourceType, int capacity, int maxReceive,
                                         ShieldType type,
                                         List<ShieldBuilder.BlockEffectEntry> blockEffects,
-                                        List<IShieldBlockHandler> blockHandlers) {
+                                        List<IShieldBlockHandler> blockHandlers,
+                                        boolean bashEnabled) {
         super(0, type == ShieldType.TOWER, new Item.Properties());
         this.resourceType = resourceType;
         this.energyCapacity = type == ShieldType.TOWER ? Mth.floor(capacity * 1.25f) : capacity;
         this.maxEnergyReceive = maxReceive;
         this.blockEffects = blockEffects;
         this.blockHandlers = blockHandlers;
+        this.bashEnabled = bashEnabled;
+
+        // 自注册到 BuilderRegistry — 此时正处于 DeferredRegister 创建 Item 阶段，
+        // 注册表尚未冻结，后续 CapabilityEventHandler 可直接使用此实例
+        BuilderRegistry.registerPoweredShield(this, resourceType, this.energyCapacity, maxReceive);
 
         if (FMLEnvironment.dist.isClient()) {
             ClientHelper.registerPoweredShieldPropertyOverrides(this);
@@ -201,5 +210,10 @@ public class GeneratedResourceShieldItem extends ShieldBaseItem implements IDama
     /** 获取格挡处理器列表 */
     public List<IShieldBlockHandler> getBlockHandlers() {
         return this.blockHandlers;
+    }
+
+    @Override
+    public boolean isBashable() {
+        return this.bashEnabled;
     }
 }

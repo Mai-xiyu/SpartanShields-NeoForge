@@ -68,16 +68,19 @@ public final class ResourceRegistry {
 
     // ===== 预置类型初始化 =====
     static {
+        // DeferredHolder 本身实现了 Supplier<T>，直接传入即可
+        // 首次调用 getDataComponent() 时 DeferredHolder.get() 才会解析，
+        // 届时注册表事件已完成，DeferredHolder 已绑定
         ENERGY = new AbstractEnergyStorage(
             ResourceLocation.fromNamespaceAndPath("neoforge", "energy"),
             Component.literal("FE"),
-            ModDataComponents.STORED_ENERGY.get(),
+            ModDataComponents.STORED_ENERGY,
             0x69B3FF
         );
         MICRO_INFINITY = new AbstractEnergyStorage(
             ResourceLocation.fromNamespaceAndPath("enderio", "micro_infinity"),
             Component.literal("µI"),
-            ModDataComponents.STORED_ENERGY.get(),
+            ModDataComponents.STORED_ENERGY,
             0x4DA24B
         );
         register(ENERGY);

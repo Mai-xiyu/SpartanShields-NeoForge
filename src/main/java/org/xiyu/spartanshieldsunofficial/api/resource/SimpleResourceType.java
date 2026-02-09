@@ -1,5 +1,7 @@
 package org.xiyu.spartanshieldsunofficial.api.resource;
 
+import java.util.function.Supplier;
+
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,11 +21,11 @@ import net.minecraft.world.item.ItemStack;
  *
  * <h3>使用示例</h3>
  * <pre>{@code
- * // 最简用法 — 只需 4 个参数
+ * // 最简用法 — 直接传 DeferredHolder（它实现了 Supplier）
  * IResourceType mana = new SimpleResourceType(
  *     ResourceLocation.fromNamespaceAndPath("botania", "mana"),
  *     Component.literal("Mana"),
- *     MyDataComponents.STORED_MANA.get(),
+ *     MyDataComponents.STORED_MANA,  // DeferredHolder IS-A Supplier
  *     0x00C6FF
  * );
  * }</pre>
@@ -32,7 +34,8 @@ public class SimpleResourceType implements IResourceType {
 
     private final ResourceLocation id;
     private final Component displayName;
-    private final DataComponentType<Integer> dataComponent;
+    private final Supplier<DataComponentType<Integer>> dataComponentSupplier;
+    private volatile DataComponentType<Integer> dataComponentCache;
     private final int barColor;
 
     /**
@@ -45,7 +48,38 @@ public class SimpleResourceType implements IResourceType {
                                DataComponentType<Integer> dataComponent, int barColor) {
         this.id = id;
         this.displayName = displayName;
-        this.dataComponent = dataComponent;
+        this.dataComponentSupplier = () -> dataComponent;
+        this.dataComponentCache = dataComponent;
+        this.barColor = barColor;
+    }
+
+    /**
+     * 延迟解析构造器 — 接受 {@code Supplier<DataComponentType<Integer>>}。
+     * <p>
+     * NeoForge 的 {@code DeferredHolder} 本身实现了 {@code Supplier} 接口，
+     * 因此可以直接将 {@code DeferredHolder} 作为参数传入：
+     * </p>
+     * <pre>{@code
+     * // DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_MANA = ...
+     * IResourceType mana = new SimpleResourceType(
+     *     ResourceLocation.fromNamespaceAndPath("botania", "mana"),
+     *     Component.literal("Mana"),
+     *     MyDataComponents.STORED_MANA,   // DeferredHolder IS-A Supplier
+     *     0x00C6FF
+     * );
+     * }</pre>
+     *
+     * @param id                    全局唯一 ID
+     * @param displayName           Tooltip 中显示的单位名
+     * @param dataComponentSupplier DataComponentType 的供应器（通常直接传入 DeferredHolder）
+     * @param barColor              物品耐久条颜色（RGB）
+     */
+    public SimpleResourceType(ResourceLocation id, Component displayName,
+                               Supplier<DataComponentType<Integer>> dataComponentSupplier, int barColor) {
+        this.id = id;
+        this.displayName = displayName;
+        this.dataComponentSupplier = dataComponentSupplier;
+        this.dataComponentCache = null;
         this.barColor = barColor;
     }
 
@@ -56,19 +90,26 @@ public class SimpleResourceType implements IResourceType {
     public Component getDisplayName() { return displayName; }
 
     @Override
-    public DataComponentType<Integer> getDataComponent() { return dataComponent; }
+    public DataComponentType<Integer> getDataComponent() {
+        DataComponentType<Integer> cached = this.dataComponentCache;
+        if (cached == null) {
+            cached = this.dataComponentSupplier.get();
+            this.dataComponentCache = cached;
+        }
+        return cached;
+    }
 
     @Override
     public int getBarColor() { return barColor; }
 
     @Override
     public int getStored(ItemStack stack) {
-        return stack.getOrDefault(dataComponent, 0);
+        return stack.getOrDefault(getDataComponent(), 0);
     }
 
     @Override
     public void setStored(ItemStack stack, int amount) {
-        stack.set(dataComponent, Math.max(0, amount));
+        stack.set(getDataComponent(), Math.max(0, amount));
     }
 
     @Override

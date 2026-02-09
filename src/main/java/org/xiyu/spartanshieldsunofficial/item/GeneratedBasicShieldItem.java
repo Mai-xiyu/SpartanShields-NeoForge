@@ -31,10 +31,12 @@ public class GeneratedBasicShieldItem extends BasicShieldItem implements IDamage
 
     private final List<ShieldBuilder.BlockEffectEntry> blockEffects;
     private final List<IShieldBlockHandler> blockHandlers;
+    private final boolean bashEnabled;
 
     public GeneratedBasicShieldItem(IShieldMaterial material, ShieldType type,
                                      List<ShieldBuilder.BlockEffectEntry> blockEffects,
-                                     List<IShieldBlockHandler> blockHandlers) {
+                                     List<IShieldBlockHandler> blockHandlers,
+                                     boolean bashEnabled) {
         super(
             TierSS.fromMaterial(material),
             material.getDurability(),
@@ -43,6 +45,7 @@ public class GeneratedBasicShieldItem extends BasicShieldItem implements IDamage
         );
         this.blockEffects = blockEffects;
         this.blockHandlers = blockHandlers;
+        this.bashEnabled = bashEnabled;
 
         if (FMLEnvironment.dist.isClient()) {
             ClientHelper.registerShieldPropertyOverrides(this);
@@ -74,5 +77,10 @@ public class GeneratedBasicShieldItem extends BasicShieldItem implements IDamage
     /** 获取格挡处理器列表（供 CommonEventHandler 使用） */
     public List<IShieldBlockHandler> getBlockHandlers() {
         return this.blockHandlers;
+    }
+
+    @Override
+    public boolean isBashable() {
+        return this.bashEnabled;
     }
 }

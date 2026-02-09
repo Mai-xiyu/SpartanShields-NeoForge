@@ -33,6 +33,17 @@ public class ShieldBaseItem extends ShieldItem {
 
     protected int maxDurability;
 
+    /**
+     * 返回此盾牌是否支持猛击。
+     * <p>
+     * 默认返回 {@code false}（主模组自带盾牌通过 Tag 判定）。
+     * 通过 {@code ShieldBuilder} 创建的盾牌会根据 {@code bashable()} 参数返回相应值。
+     * </p>
+     */
+    public boolean isBashable() {
+        return false;
+    }
+
     public ShieldBaseItem(int defaultDurability, boolean isTowerShieldIn, Item.Properties prop) {
         // Increase durability by 25% with tower shields (will be reloaded when the server config is updated)
         super(prop.durability(isTowerShieldIn ? Mth.floor(defaultDurability * 1.25f) : defaultDurability));

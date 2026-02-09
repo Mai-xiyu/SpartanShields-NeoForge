@@ -7,6 +7,7 @@ import org.xiyu.spartanshieldsunofficial.init.ModDataComponents;
 import org.xiyu.spartanshieldsunofficial.init.ModEnchantments;
 import org.xiyu.spartanshieldsunofficial.init.ModSounds;
 import org.xiyu.spartanshieldsunofficial.init.ModStats;
+import org.xiyu.spartanshieldsunofficial.item.ShieldBaseItem;
 import org.xiyu.spartanshieldsunofficial.tags.ModItemTags;
 
 import io.netty.buffer.ByteBuf;
@@ -48,6 +49,14 @@ public record ShieldBashPacket(InteractionHand hand, int entityId,
         return TYPE;
     }
 
+    /**
+     * 判断盾牌是否允许猛击：通过 Tag 或通过 API 的 bashable 标志。
+     */
+    private static boolean isBashAllowed(ItemStack stack) {
+        return stack.is(ModItemTags.SHIELDS_WITH_BASH)
+            || (stack.getItem() instanceof ShieldBaseItem shield && shield.isBashable());
+    }
+
     public static void handle(final ShieldBashPacket packet, IPayloadContext ctx) {
         ctx.enqueueWork(() ->
         {
@@ -59,7 +68,7 @@ public record ShieldBashPacket(InteractionHand hand, int entityId,
                 boolean isTowerShield = shieldStack.is(ModItemTags.TOWER_SHIELDS);
 
                 if (!shieldStack.isEmpty() && !player.getCooldowns().isOnCooldown(shieldStack.getItem()) &&
-                        player.getUseItem().is(ModItemTags.SHIELDS_WITH_BASH) && player.getUseItem().canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
+                        isBashAllowed(player.getUseItem()) && player.getUseItem().canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
                     if (packet.attackEntity() && victim instanceof LivingEntity) {
                         // Deal minimal damage and knock back foes
                         int knockLvl = getEnchantmentLevel(player, shieldStack, Enchantments.KNOCKBACK);
