@@ -31,6 +31,9 @@ This mod adds a variety of shields with unique abilities and effects, including 
 
 ---
 
+## API DOCS
+- [Docs](https://mai-xiyu.github.io/ProJect_Docs/)
+
 ## 功能特性
 
 ### 基础盾牌 (Basic Shields)
