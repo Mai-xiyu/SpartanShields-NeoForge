@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:diamond_shields",
+  "key": {
+    "#": {
+      "tag": "forge:gems/diamond"
+    },
+    "O": {
+      "item": "spartan_shields_unofficial:wooden_basic_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:diamond_basic_shield"
+  }
+}

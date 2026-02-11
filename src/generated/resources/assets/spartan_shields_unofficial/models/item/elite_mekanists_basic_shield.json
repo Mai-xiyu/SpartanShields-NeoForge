@@ -1,0 +1,30 @@
+{
+  "parent": "spartan_shields_unofficial:item/mekanists_basic_shield_base",
+  "overrides": [
+    {
+      "model": "spartan_shields_unofficial:item/mekanists_basic_shield_base_blocking",
+      "predicate": {
+        "minecraft:blocking": 1.0,
+        "minecraft:disabled": 0.0
+      }
+    },
+    {
+      "model": "spartan_shields_unofficial:item/mekanists_basic_shield_base_deactivated",
+      "predicate": {
+        "minecraft:blocking": 0.0,
+        "minecraft:disabled": 1.0
+      }
+    },
+    {
+      "model": "spartan_shields_unofficial:item/mekanists_basic_shield_base_deactivated_blocking",
+      "predicate": {
+        "minecraft:blocking": 1.0,
+        "minecraft:disabled": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "spartan_shields_unofficial:item/mekanism/mekanists_basic_shield_base",
+    "layer1": "spartan_shields_unofficial:item/mekanism/mekanists_basic_shield_lights_on"
+  }
+}

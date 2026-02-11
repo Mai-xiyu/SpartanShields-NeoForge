@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartan_shields_unofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "lumium"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ingots/lumium"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "spartan_shields_unofficial:lumium_shields",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/lumium"
+    },
+    "O": {
+      "item": "spartan_shields_unofficial:wooden_tower_shield"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#O#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:lumium_tower_shield"
+  }
+}

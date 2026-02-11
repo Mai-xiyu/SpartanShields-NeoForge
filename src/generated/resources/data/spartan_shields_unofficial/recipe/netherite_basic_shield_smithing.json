@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "tag": "forge:ingots/netherite"
+  },
+  "base": {
+    "item": "spartan_shields_unofficial:diamond_basic_shield"
+  },
+  "result": {
+    "count": 1,
+    "id": "spartan_shields_unofficial:netherite_basic_shield"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "spartan_shields_unofficial:type_disabled",
+      "disabled": [
+        "modded",
+        "lumium"
+      ]
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ingots/lumium"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lumium_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#forge:ingots/lumium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spartan_shields_unofficial:lumium_basic_shield"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lumium_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spartan_shields_unofficial:lumium_basic_shield"
+    ]
+  }
+}
